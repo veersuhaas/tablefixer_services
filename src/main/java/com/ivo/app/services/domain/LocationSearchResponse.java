@@ -2,7 +2,7 @@ package com.ivo.app.services.domain;
 
 import java.io.Serializable;
 
-public class LocationSearchResponse implements Serializable{
+public class LocationSearchResponse extends Address implements Serializable{
 	
 	private Long locationId;
 	
@@ -19,6 +19,7 @@ public class LocationSearchResponse implements Serializable{
 	private String email;
 	
 	private String website;
+	
 
 	public Long getLocationId() {
 		return locationId;
