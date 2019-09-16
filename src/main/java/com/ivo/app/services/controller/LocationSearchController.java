@@ -5,8 +5,6 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
-import org.springframework.data.domain.Sort.Order;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -22,12 +20,11 @@ import com.ivo.app.services.service.LocationSearchService;
 public class LocationSearchController {
 	
 	@Autowired
-	LocationSearchService locationSearchService;
+	private LocationSearchService locationSearchService;
 	
 	@PostMapping(value="/search")
 	public List<LocationSearchResponse> searchLocations(@RequestBody LocationSearchRequest locationSearchRequest, @RequestParam Integer start,@RequestParam  Integer limit) {
 		Pageable pageable = PageRequest.of(start, limit);
 		return locationSearchService.searchLocations(locationSearchRequest,pageable);
 	}
-
 }
