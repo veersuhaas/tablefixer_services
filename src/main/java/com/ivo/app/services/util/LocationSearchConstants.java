@@ -11,7 +11,7 @@ public interface LocationSearchConstants {
 	public static final String QUERY_USER_FAVORITE_LOCATIONS_BY_GPS_COORDINATES= "select loc.location_id locationId, loc.loc_uuid locationUUID, "
 			+ " loc.loc_name locationName, " + 
 			" ST_DistanceSphere(ST_MakePoint(:lng, :lat),  ST_MakePoint(loc.lang,loc.lat)) distance," + 
-			" contact_num_1 phoneNumber, email email, website " + 
+			" contact_num_1 phoneNumber, loc.email email, loc.website ,loc.address_ln1 addrLn1,loc.address_ln2 addrLn2, loc.city city,loc.state state, loc.zip_code zip " + 
 			" from  location_info_ref loc, user_favorite_locations_xref favorite" + 
 			" where " + 
 			" loc.loc_uuid=favorite.location_uuid" + 
@@ -21,7 +21,7 @@ public interface LocationSearchConstants {
 			" ST_MakePoint(loc.lang,loc.lat)) ";
 
 	public static final String QUERY_USER_FAVORITE_LOCATIONS_BY_BOOK_MARKED_COORDINATES= "select loc.location_id locationId, loc.loc_uuid locationUUID, loc.loc_name locationName, ST_DistanceSphere(ST_MakePoint(userloc.lang,userloc.lat), " + 
-			" ST_MakePoint(loc.lang,loc.lat)) distance,contact_num_1 phoneNumber " + 
+			" ST_MakePoint(loc.lang,loc.lat)) distance,contact_num_1 phoneNumber , loc.email email, loc.website ,loc.address_ln1 addrLn1,loc.address_ln2 addrLn2, loc.city city,loc.state state, loc.zip_code zip" + 
 			" from  location_info_ref loc, user_info_ref usr, user_locations_xref userloc , user_favorite_locations_xref favorite " + 
 			" where  " + 
 			" userloc.user_id=usr.user_id  " + 
