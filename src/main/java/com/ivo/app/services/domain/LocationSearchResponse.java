@@ -2,7 +2,7 @@ package com.ivo.app.services.domain;
 
 import java.io.Serializable;
 
-public class LocationSearchResponse implements Serializable{
+public class LocationSearchResponse extends Address implements Serializable{
 	
 	private Long locationId;
 	
@@ -13,6 +13,13 @@ public class LocationSearchResponse implements Serializable{
 	private String distance;
 	
 	private String phoneNumber;
+	
+	private boolean isFavorite;
+	
+	private String email;
+	
+	private String website;
+	
 
 	public Long getLocationId() {
 		return locationId;
@@ -52,6 +59,30 @@ public class LocationSearchResponse implements Serializable{
 
 	public void setPhoneNumber(String phoneNumber) {
 		this.phoneNumber = phoneNumber;
+	}
+
+	public boolean getIsFavorite() {
+		return isFavorite;
+	}
+
+	public void setIsFavorite(boolean isFavorite) {
+		this.isFavorite = isFavorite;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public String getWebsite() {
+		return website;
+	}
+
+	public void setWebsite(String website) {
+		this.website = website;
 	}
 	
 }
