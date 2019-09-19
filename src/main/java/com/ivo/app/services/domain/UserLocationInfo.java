@@ -14,16 +14,6 @@ public class UserLocationInfo implements Serializable{
 	private String latitude;
 	
 	private String userBookMarkLocationType; //Home, Office .. etc
-	
-	private Address addressSearch;
-	
-	public Address getAddressSearch() {
-		return addressSearch;
-	}
-
-	public void setAddressSearch(Address addressSearch) {
-		this.addressSearch = addressSearch;
-	}
 
 	private boolean isGPSLocationenabled;
 	
