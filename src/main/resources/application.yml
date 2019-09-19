@@ -11,4 +11,3 @@ spring:
     driverClassName: org.postgresql.Driver
     hikari:
       maximum-pool-size: 2
-    

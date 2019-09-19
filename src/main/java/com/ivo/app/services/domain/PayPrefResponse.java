@@ -15,8 +15,6 @@ public class PayPrefResponse implements Serializable {
 	
 	private String payPrefDisplayName;
 	
-	private Integer orderBy;
-
 	public Integer getPayPrefId() {
 		return payPrefId;
 	}
@@ -41,21 +39,5 @@ public class PayPrefResponse implements Serializable {
 		this.payPrefDisplayName = payPrefDisplayName;
 	}
 
-	public Integer getOrderBy() {
-		return orderBy;
-	}
-
-	public void setOrderBy(Integer orderBy) {
-		this.orderBy = orderBy;
-	}
-
-	public static long getSerialversionuid() {
-		return serialVersionUID;
-	}
-
-	
-
-	
-	
 
 }
