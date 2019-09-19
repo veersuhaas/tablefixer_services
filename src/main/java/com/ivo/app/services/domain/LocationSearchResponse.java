@@ -14,12 +14,12 @@ public class LocationSearchResponse extends Address implements Serializable{
 	
 	private String phoneNumber;
 	
-	private boolean isFavorite;
+	private boolean favorite;
 	
 	private String email;
 	
 	private String website;
-	
+
 
 	public Long getLocationId() {
 		return locationId;
@@ -61,12 +61,12 @@ public class LocationSearchResponse extends Address implements Serializable{
 		this.phoneNumber = phoneNumber;
 	}
 
-	public boolean getIsFavorite() {
-		return isFavorite;
+	public boolean isFavorite() {
+		return favorite;
 	}
 
-	public void setIsFavorite(boolean isFavorite) {
-		this.isFavorite = isFavorite;
+	public void setFavorite(boolean favorite) {
+		this.favorite = favorite;
 	}
 
 	public String getEmail() {

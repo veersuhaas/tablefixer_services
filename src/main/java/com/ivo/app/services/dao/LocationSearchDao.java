@@ -10,9 +10,9 @@ import com.ivo.app.services.domain.UserLocationInfo;
 
 public interface LocationSearchDao {
 
-	List<LocationSearchResponse> searchLocations(LocationSearchRequest locationSearchRequest, Pageable pageable);
+	List<LocationSearchResponse> searchLocations(String userUUID,LocationSearchRequest locationSearchRequest, String searchStrategy,Pageable pageable);
 
-	List<LocationSearchResponse> getUserFavoriteLocation(String userUUID, UserLocationInfo userLocationInfo,
+	List<LocationSearchResponse> getUserFavoriteLocation(String userUUID, LocationSearchRequest locationSearchRequest,
 			String searchStrategy, Pageable pageable);
 
 }

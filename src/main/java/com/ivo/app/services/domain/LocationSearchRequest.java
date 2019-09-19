@@ -3,43 +3,51 @@ package com.ivo.app.services.domain;
 import java.io.Serializable;
 
 public class LocationSearchRequest implements Serializable{
-	
-	private Integer userId;
-	
-	private String UUID;
-	
-	private String searchBy;//Home Address or Work Address or any other
-	
+
+	private static final long serialVersionUID = -8409039374798512885L;
+
 	private String longitude;
-	
+
 	private String latitude;
 
-	public Integer getUserId() {
-		return userId;
-	}
+	private String userBookMarkLocationType; //Home, Office .. etc
 
-	public void setUserId(Integer userId) {
-		this.userId = userId;
-	}
+	private boolean isGPSLocationenabled;
 
-	public String getUUID() {
-		return UUID;
-	}
+	private String coordinateReference; //GPS or LocationSearch(derived from location search)
 
-	public void setUUID(String uUID) {
-		UUID = uUID;
-	}
-
-	public String getSearchBy() {
-		return searchBy;
-	}
-
-	public void setSearchBy(String searchBy) {
-		this.searchBy = searchBy;
-	}
+	private String searchRadiusMiles;
 
 	public String getLongitude() {
 		return longitude;
+	}
+
+	public boolean isGPSLocationenabled() {
+		return isGPSLocationenabled;
+	}
+
+	public void setGPSLocationenabled(boolean isGPSLocationenabled) {
+		this.isGPSLocationenabled = isGPSLocationenabled;
+	}
+
+	public String getCoordinateReference() {
+		return coordinateReference;
+	}
+
+	public void setCoordinateReference(String coordinateReference) {
+		this.coordinateReference = coordinateReference;
+	}
+
+	public String getSearchRadiusMiles() {
+		return searchRadiusMiles;
+	}
+
+	public void setSearchRadiusMiles(String searchRadiusMiles) {
+		this.searchRadiusMiles = searchRadiusMiles;
+	}
+
+	public static long getSerialversionuid() {
+		return serialVersionUID;
 	}
 
 	public void setLongitude(String longitude) {
@@ -53,7 +61,12 @@ public class LocationSearchRequest implements Serializable{
 	public void setLatitude(String latitude) {
 		this.latitude = latitude;
 	}
-	
 
-	
+	public String getUserBookMarkLocationType() {
+		return userBookMarkLocationType;
+	}
+
+	public void setUserBookMarkLocationType(String userBookMarkLocationType) {
+		this.userBookMarkLocationType = userBookMarkLocationType;
+	}
 }
