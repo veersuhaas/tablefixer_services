@@ -20,7 +20,6 @@ public class LocationSearchResponse extends Address implements Serializable{
 	
 	private String website;
 
-
 	public Long getLocationId() {
 		return locationId;
 	}

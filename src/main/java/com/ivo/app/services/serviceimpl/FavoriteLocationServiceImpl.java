@@ -1,14 +1,13 @@
 package com.ivo.app.services.serviceimpl;
 
+import com.ivo.app.services.entity.UserFavoriteLocationsXref;
+import com.ivo.app.services.repository.UserFavoriteLocationsXrefRepository;
+import com.ivo.app.services.service.FavoriteLocationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.ivo.app.services.entity.UserFavoriteLocationsXref;
-import com.ivo.app.services.repository.UserFavoriteLocationsXrefRepository;
-import com.ivo.app.services.service.LocationService;
-
 @Service
-public class LocationServiceImpl implements LocationService {
+public class FavoriteLocationServiceImpl implements FavoriteLocationService {
 
 	@Autowired
 	private UserFavoriteLocationsXrefRepository userFavoriteLocationsXrefRepository;
@@ -28,10 +27,6 @@ public class LocationServiceImpl implements LocationService {
 
 	@Override
 	public long deleteUserFavoriteLocation(String userUUID, String locationUUID) {
-//		UserFavoriteLocationsXref userFavoriteLocationsXref = new UserFavoriteLocationsXref();
-//
-//		userFavoriteLocationsXref.setUserUuid(userUUID);
-//		userFavoriteLocationsXref.setLocationUuid(locationUUID);
 		return userFavoriteLocationsXrefRepository.deleteByUserUuidAndLocationUuid(userUUID,  locationUUID);
 	}
 

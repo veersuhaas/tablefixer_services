@@ -1,17 +1,16 @@
 package com.ivo.app.services.controller;
 
-import java.util.List;
-
+import com.ivo.app.services.domain.Cuisine;
+import com.ivo.app.services.domain.EventGenderPref;
+import com.ivo.app.services.domain.EventPurpose;
+import com.ivo.app.services.domain.PayPrefResponse;
+import com.ivo.app.services.service.ReferenceDataService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.ivo.app.services.domain.Cusine;
-import com.ivo.app.services.domain.EventGenderPref;
-import com.ivo.app.services.domain.EventPurpose;
-import com.ivo.app.services.domain.PayPrefResponse;
-import com.ivo.app.services.service.ReferenceDataService;
+import java.util.List;
 
 @RestController
 @RequestMapping(value="/ref")
@@ -39,8 +38,8 @@ public class ReferenceDataController {
 	}
 	
 	@GetMapping(value="/cusine/list/top/{count}")
-	public List<Cusine> getCusinesList(){
-		return referenceDataService.getCusinesList(); 
+    public List<Cuisine> getCuisinesList() {
+        return referenceDataService.getCuisinesList();
 		
 	}
 }

@@ -9,3 +9,5 @@ spring:
     username: doadmin
     password: yeylnisr3usov1iv
     driverClassName: org.postgresql.Driver
+    hikari:
+      maximum-pool-size: 2
