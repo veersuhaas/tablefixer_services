@@ -2,7 +2,7 @@ package com.ivo.app.services.domain;
 
 import java.io.Serializable;
 
-public class Cusine implements Serializable {
+public class Cuisine implements Serializable {
 
 	/**
 	 * 
