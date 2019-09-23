@@ -4,7 +4,6 @@ import com.ivo.app.services.domain.AddressSearchResponse;
 import com.ivo.app.services.domain.LocationSearchRequest;
 import com.ivo.app.services.domain.LocationSearchResponse;
 import com.ivo.app.services.service.LocationSearchService;
-import com.ivo.app.services.util.LocationSearchConstants;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -24,12 +23,8 @@ public class LocationSearchController {
     @PostMapping(value = "/search/{userUUID}")
     public ResponseEntity<List<LocationSearchResponse>> searchLocations(@RequestBody @Valid LocationSearchRequest locationSearchRequest, @PathVariable(value = "userUUID") String userUUID, @RequestParam Integer start, @RequestParam Integer limit) {
         Pageable pageable = PageRequest.of(start, limit);
-        if (!(locationSearchRequest.getFromReferenceType().contains(LocationSearchConstants.CURRENT_GPS_LOCATION) || locationSearchRequest.getFromReferenceType().contains(LocationSearchConstants.USER_MY_PLACES) || locationSearchRequest.getFromReferenceType().contains(LocationSearchConstants.USER_MY_PLACES))) {
-//			throw an error ;
-        }
         List<LocationSearchResponse> listLocations = locationSearchService.searchLocations(userUUID, locationSearchRequest, pageable);
         return ResponseEntity.ok().body(listLocations);
-
     }
 
     @PostMapping(value = "/search/address/{userUUID}")
