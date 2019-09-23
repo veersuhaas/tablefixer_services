@@ -22,24 +22,20 @@ public class ReferenceDataController {
 	@GetMapping(value="/guests/paypref/list")
 	public List<PayPrefResponse> getAllGuestPayPreferences(){
 		return referenceDataService.getAllGuestPayPreferences();
-		
 	}
 	
 	@GetMapping(value="/guests/genderpref/list")
 	public List<EventGenderPref> getAllEventGenderPreferences(){
 		return referenceDataService.getAllEventGenderPreferences();
-		
 	}
 	
 	@GetMapping(value="/eventspurpose/list")
 	public List<EventPurpose> getAllEventPurposes(){
 		return referenceDataService.getAllEventPurposes();
-		
 	}
 	
 	@GetMapping(value="/cusine/list/top/{count}")
     public List<Cuisine> getCuisinesList() {
         return referenceDataService.getCuisinesList();
-		
 	}
 }

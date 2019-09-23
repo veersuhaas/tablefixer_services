@@ -9,10 +9,9 @@ import java.util.List;
 
 public interface LocationSearchDao {
 
-	List<LocationSearchResponse> searchLocations(String userUUID,LocationSearchRequest locationSearchRequest, String searchStrategy,Pageable pageable);
+	List<LocationSearchResponse> searchLocations(String userUUID, LocationSearchRequest locationSearchRequest, Pageable pageable);
 
-	List<LocationSearchResponse> getUserFavoriteLocation(String userUUID, LocationSearchRequest locationSearchRequest,
-			String searchStrategy, Pageable pageable);
+	List<LocationSearchResponse> getUserFavoriteLocation(String userUUID, LocationSearchRequest locationSearchRequest, Pageable pageable);
 
     List<AddressSearchResponse> searchAddress(String searchKey, String userUUID, Pageable pageable);
 }
