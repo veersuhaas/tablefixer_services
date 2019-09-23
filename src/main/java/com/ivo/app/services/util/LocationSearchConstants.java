@@ -6,7 +6,13 @@ public interface LocationSearchConstants {
 
 	String USER_LOCATIONS = "USER_LOCATIONS";
 
-	String CUSTOM_ADDRESS = "CUSTOM_ADDRESS";
+	String SEARCH_KEYWORD = "SEARCH_KEYWORD";
+
+	String CURRENT_GPS_LOCATION = "CURRENT_GPS_LOCATION";
+
+	String USER_MY_PLACES = "USER_MY_PLACES";
+
+	String CUSTOM_GPS_LOCATION = "CUSTOM_GPS_LOCATION";
 
 
 	String QUERY_SEARCH_LOCATIONS_BY_BOOK_MARKED_COORDINATES = "select loc.location_id locationId, loc.loc_uuid locationUUID, loc.loc_name locationName, ST_DistanceSphere(ST_MakePoint(userloc.lang,userloc.lat), " +
@@ -59,5 +65,7 @@ public interface LocationSearchConstants {
 			" ST_MakePoint(loc.lang,loc.lat)) ";
 
 
-
+	String QUERY_GENERIC_ADDRESS_SEARCH = "select  name,county,state,zip_codes,longitude,latitude " +
+			" from us_cities " +
+			" where upper(name) like upper(:searchKey)  or upper(county) like upper(:searchKey) or zip_codes like :searchKey";
 }

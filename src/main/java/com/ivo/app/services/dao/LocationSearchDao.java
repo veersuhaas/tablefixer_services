@@ -1,5 +1,6 @@
 package com.ivo.app.services.dao;
 
+import com.ivo.app.services.domain.AddressSearchResponse;
 import com.ivo.app.services.domain.LocationSearchRequest;
 import com.ivo.app.services.domain.LocationSearchResponse;
 import org.springframework.data.domain.Pageable;
@@ -12,4 +13,6 @@ public interface LocationSearchDao {
 
 	List<LocationSearchResponse> getUserFavoriteLocation(String userUUID, LocationSearchRequest locationSearchRequest,
 			String searchStrategy, Pageable pageable);
+
+    List<AddressSearchResponse> searchAddress(String searchKey, String userUUID, Pageable pageable);
 }
