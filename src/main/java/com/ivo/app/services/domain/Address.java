@@ -10,7 +10,6 @@ public class Address implements Serializable {
 	private String country;
 	private String zip;
 	private String state;
-	private String addressString;
 	public String getAddrLn1() {
 		return addrLn1;
 	}
@@ -47,13 +46,4 @@ public class Address implements Serializable {
 	public void setState(String state) {
 		this.state = state;
 	}
-	public String getAddressString() {
-		return addressString;
-	}
-	public void setAddressString(String addressString) {
-		this.addressString = addressString;
-	}
-	
-	
-	
 }

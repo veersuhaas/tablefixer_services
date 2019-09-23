@@ -1,6 +1,7 @@
 package com.ivo.app.services.daoimpl;
 
 import com.ivo.app.services.dao.LocationSearchDao;
+import com.ivo.app.services.domain.AddressSearchResponse;
 import com.ivo.app.services.domain.LocationSearchRequest;
 import com.ivo.app.services.domain.LocationSearchResponse;
 import com.ivo.app.services.util.LocationSearchConstants;
@@ -27,7 +28,11 @@ public class LocationSearchDaoImpl implements LocationSearchDao {
 		params.put("UUID", userUUID);
         params.put("locationType", locationSearchRequest.getUserBookMarkLocationType());
 		params.put("radius", new Float(locationSearchRequest.getSearchRadiusMiles()));
-        if (LocationSearchConstants.GEO_COORDINATES.equals(searchStrategy)) {
+        if (LocationSearchConstants.SEARCH_KEYWORD.equals(searchStrategy)) {
+            params.put("searchKeyword", locationSearchRequest.getLocationNameSearchString());
+            return namedParameterJdbcTemplate.query(LocationSearchConstants.QUERY_SEARCH_LOCATIONS_BY_GPS_COORDINATES +
+                    " limit " + pageable.getPageSize() + " offset " + (pageable.getPageNumber() - 1) * pageable.getPageSize(), params, new BeanPropertyRowMapper<>(LocationSearchResponse.class));
+        } else if (LocationSearchConstants.GEO_COORDINATES.equals(searchStrategy)) {
             params.put("lng", Double.parseDouble(locationSearchRequest.getLongitude()));
             params.put("lat", Double.parseDouble(locationSearchRequest.getLatitude()));
             return namedParameterJdbcTemplate.query(LocationSearchConstants.QUERY_SEARCH_LOCATIONS_BY_GPS_COORDINATES +
@@ -63,5 +68,15 @@ public class LocationSearchDaoImpl implements LocationSearchDao {
 		}
 		  return null;
 	}
+
+    @Override
+    public List<AddressSearchResponse> searchAddress(String searchKey, String userUUID, Pageable pageable) {
+        Map<String, String> params = new HashMap<>();
+        params.put("searchKey", "%" + searchKey + "%");
+
+        return namedParameterJdbcTemplate.query(LocationSearchConstants.QUERY_GENERIC_ADDRESS_SEARCH + " limit " + pageable.getPageSize() + " offset " + (pageable.getPageNumber() - 1) * pageable.getPageSize(), params, new BeanPropertyRowMapper<>(AddressSearchResponse.class));
+
+
+    }
 
 }

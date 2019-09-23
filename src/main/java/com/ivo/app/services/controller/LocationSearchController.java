@@ -1,28 +1,42 @@
 package com.ivo.app.services.controller;
 
+import com.ivo.app.services.domain.AddressSearchResponse;
 import com.ivo.app.services.domain.LocationSearchRequest;
 import com.ivo.app.services.domain.LocationSearchResponse;
 import com.ivo.app.services.service.LocationSearchService;
+import com.ivo.app.services.util.LocationSearchConstants;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
 @RequestMapping(value="/location")
 public class LocationSearchController {
-	
-	@Autowired
-	private LocationSearchService locationSearchService;
-	
-	@PostMapping(value="/search/{userUUID}")
-	public ResponseEntity<List<LocationSearchResponse>> searchLocations(@RequestBody LocationSearchRequest locationSearchRequest, @PathVariable(value="userUUID") String userUUID, @RequestParam Integer start, @RequestParam  Integer limit) {
-		Pageable pageable = PageRequest.of(start, limit);
+
+    @Autowired
+    private LocationSearchService locationSearchService;
+
+    @PostMapping(value = "/search/{userUUID}")
+    public ResponseEntity<List<LocationSearchResponse>> searchLocations(@RequestBody @Valid LocationSearchRequest locationSearchRequest, @PathVariable(value = "userUUID") String userUUID, @RequestParam Integer start, @RequestParam Integer limit) {
+        Pageable pageable = PageRequest.of(start, limit);
+        if (!(locationSearchRequest.getFromReferenceType().contains(LocationSearchConstants.CURRENT_GPS_LOCATION) || locationSearchRequest.getFromReferenceType().contains(LocationSearchConstants.USER_MY_PLACES) || locationSearchRequest.getFromReferenceType().contains(LocationSearchConstants.USER_MY_PLACES))) {
+//			throw an error ;
+        }
         List<LocationSearchResponse> listLocations = locationSearchService.searchLocations(userUUID, locationSearchRequest, pageable);
         return ResponseEntity.ok().body(listLocations);
 
-	}
+    }
+
+    @PostMapping(value = "/search/address/{userUUID}")
+    public ResponseEntity<List<AddressSearchResponse>> searchAddress(@RequestParam String searchKey, @PathVariable(value = "userUUID") String userUUID, @RequestParam Integer start, @RequestParam Integer limit) {
+        Pageable pageable = PageRequest.of(start, limit);
+        List<AddressSearchResponse> listAddresses = locationSearchService.searchAddress(searchKey, userUUID, pageable);
+        return ResponseEntity.ok().body(listAddresses);
+    }
+
 }
