@@ -29,7 +29,6 @@ public class FavoriteLocationController {
 	public ResponseEntity<UserFavoriteLocationsXref> createUserFavoriteLocation(@PathVariable(value="userUUID") String userUUID, @PathVariable(value="locationUUID") String locationUUID) throws URISyntaxException{
 		
 		System.out.println("userUUID:"+userUUID+",locationUUID:"+locationUUID);
-
         UserFavoriteLocationsXref userFavoriteLocationsXref = favoriteLocationService.createUserFavoriteLocation(userUUID, locationUUID);
         return ResponseEntity.created(new URI("/v1/favorite/userUUID/create/locationUUID")).body(userFavoriteLocationsXref);
 	}
@@ -38,7 +37,6 @@ public class FavoriteLocationController {
     public ResponseEntity<Object> deleteUserFavoriteLocation(@PathVariable(value = "userUUID") String userUUID, @PathVariable(value = "locationUUID") String locationUUID) {
 		
 		System.out.println("userUUID:"+userUUID+",locationUUID:"+locationUUID);
-
         long numOfRowsDeleted = favoriteLocationService.deleteUserFavoriteLocation(userUUID, locationUUID);
 		System.out.println(" deleted rows #"+numOfRowsDeleted);
 		return ResponseEntity.noContent().build();

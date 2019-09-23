@@ -1,8 +1,6 @@
 package com.ivo.app.services.domain;
 
-import javax.validation.constraints.Digits;
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
+import javax.validation.constraints.*;
 import java.io.Serializable;
 
 public class LocationSearchRequest implements Serializable{
@@ -25,9 +23,13 @@ public class LocationSearchRequest implements Serializable{
 
     @NotNull(message = " 'coordinateReference' cannot be null")
     @NotEmpty(message = " 'coordinateReference' cannot be empty")
-    private String fromReferenceType; //CURRENT_GPS_LOCATION or MY_PLACES or CUSTOM_GPS_LOCATION // To do write a custom validator to validate these 3 possibilities and the associated fields based on the value
+    private String gpsCoordinateReference; //CURRENT_GPS_LOCATION or MY_PLACES or CUSTOM_GPS_LOCATION // To do write a custom validator to validate these 3 possibilities and the associated fields based on the value
 
-	private String searchRadiusMiles;
+    @NotNull
+    @NotEmpty
+    @Min(1)
+    @Max(500)
+    private String searchRadiusMiles;
 
     public String getCuisineType() {
         return cuisineType;
@@ -57,15 +59,15 @@ public class LocationSearchRequest implements Serializable{
 		return longitude;
 	}
 
-    public String getFromReferenceType() {
-        return fromReferenceType;
+    public String getGpsCoordinateReference() {
+        return gpsCoordinateReference;
     }
 
-    public void setFromReferenceType(String fromReferenceType) {
-        this.fromReferenceType = fromReferenceType;
-	}
+    public void setGpsCoordinateReference(String gpsCoordinateReference) {
+        this.gpsCoordinateReference = gpsCoordinateReference;
+    }
 
-	public String getSearchRadiusMiles() {
+    public String getSearchRadiusMiles() {
 		return searchRadiusMiles;
 	}
 
