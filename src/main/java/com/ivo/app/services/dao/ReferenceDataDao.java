@@ -1,11 +1,11 @@
 package com.ivo.app.services.dao;
 
-import java.util.List;
-
-import com.ivo.app.services.domain.Cusine;
+import com.ivo.app.services.domain.Cuisine;
 import com.ivo.app.services.domain.EventGenderPref;
 import com.ivo.app.services.domain.EventPurpose;
 import com.ivo.app.services.domain.PayPrefResponse;
+
+import java.util.List;
 
 public interface ReferenceDataDao {
 
@@ -15,6 +15,6 @@ public interface ReferenceDataDao {
 
 	List<EventPurpose> getAllEventPurposes();
 
-	List<Cusine> getCusinesList();
+    List<Cuisine> getCuisinesList();
 
 }

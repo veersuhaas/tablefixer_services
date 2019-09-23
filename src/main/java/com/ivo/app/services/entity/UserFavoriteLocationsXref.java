@@ -1,18 +1,10 @@
 package com.ivo.app.services.entity;
 
-import java.util.Date;
-
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
-
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
+
+import javax.persistence.*;
+import java.util.Date;
 
 @Entity
 @Table(name="user_favorite_locations_xref")
@@ -23,15 +15,8 @@ public class UserFavoriteLocationsXref {
 	@Column(name="user_favorite_id")
 	private Long userFavoriteId;
 	
-//	@Column(name="location_id")
-//	private Long locationId;
-	
-//	@Column(name="user_id")
-//	private Long userId;
-	
 	@Column(name="user_uuid")
 	private String userUuid;
-	
 
 	@Column(name="is_active")
 	private Boolean isActive =true;
@@ -62,22 +47,6 @@ public class UserFavoriteLocationsXref {
 	public void setUserFavoriteId(Long userFavoriteId) {
 		this.userFavoriteId = userFavoriteId;
 	}
-
-//	public Long getLocationId() {
-//		return locationId;
-//	}
-//
-//	public void setLocationId(Long locationId) {
-//		this.locationId = locationId;
-//	}
-
-//	public Long getUserId() {
-//		return userId;
-//	}
-//
-//	public void setUserId(Long userId) {
-//		this.userId = userId;
-//	}
 
 	public String getUserUuid() {
 		return userUuid;
@@ -134,7 +103,5 @@ public class UserFavoriteLocationsXref {
 	public void setLocationUuid(String locationUuid) {
 		this.locationUuid = locationUuid;
 	}
-	
-	
 
 }

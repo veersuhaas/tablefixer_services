@@ -1,41 +1,68 @@
 package com.ivo.app.services.domain;
 
+import javax.validation.constraints.Digits;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 
 public class LocationSearchRequest implements Serializable{
 
 	private static final long serialVersionUID = -8409039374798512885L;
 
-	private String longitude;
+    private String locationNameSearchString; // Restaurant name or City name
 
-	private String latitude;
+    private String cuisineType; // Cuisine type if any
+
+    @Digits(message = "'longitude' should be a decimal value", fraction = 10, integer = 10)
+    private String longitude;
+
+    @Digits(message = "'latitude' should be a decimal value", fraction = 10, integer = 10)
+    private String latitude;
 
 	private String userBookMarkLocationType; //Home, Office .. etc
 
-	private boolean isGPSLocationenabled;
+    private boolean gpsLocationEnabled;
 
-	private String coordinateReference; //GPS or LocationSearch(derived from location search)
+    @NotNull(message = " 'coordinateReference' cannot be null")
+    @NotEmpty(message = " 'coordinateReference' cannot be empty")
+    private String fromReferenceType; //CURRENT_GPS_LOCATION or MY_PLACES or CUSTOM_GPS_LOCATION // To do write a custom validator to validate these 3 possibilities and the associated fields based on the value
 
 	private String searchRadiusMiles;
+
+    public String getCuisineType() {
+        return cuisineType;
+    }
+
+    public void setCuisineType(String cuisineType) {
+        this.cuisineType = cuisineType;
+    }
+
+    public String getLocationNameSearchString() {
+        return locationNameSearchString;
+    }
+
+    public void setLocationNameSearchString(String locationNameSearchString) {
+        this.locationNameSearchString = locationNameSearchString;
+    }
+
+    public boolean isGpsLocationEnabled() {
+        return gpsLocationEnabled;
+    }
+
+    public void setGpsLocationEnabled(boolean gpsLocationEnabled) {
+        this.gpsLocationEnabled = gpsLocationEnabled;
+    }
 
 	public String getLongitude() {
 		return longitude;
 	}
 
-	public boolean isGPSLocationenabled() {
-		return isGPSLocationenabled;
-	}
+    public String getFromReferenceType() {
+        return fromReferenceType;
+    }
 
-	public void setGPSLocationenabled(boolean isGPSLocationenabled) {
-		this.isGPSLocationenabled = isGPSLocationenabled;
-	}
-
-	public String getCoordinateReference() {
-		return coordinateReference;
-	}
-
-	public void setCoordinateReference(String coordinateReference) {
-		this.coordinateReference = coordinateReference;
+    public void setFromReferenceType(String fromReferenceType) {
+        this.fromReferenceType = fromReferenceType;
 	}
 
 	public String getSearchRadiusMiles() {
@@ -44,10 +71,6 @@ public class LocationSearchRequest implements Serializable{
 
 	public void setSearchRadiusMiles(String searchRadiusMiles) {
 		this.searchRadiusMiles = searchRadiusMiles;
-	}
-
-	public static long getSerialversionuid() {
-		return serialVersionUID;
 	}
 
 	public void setLongitude(String longitude) {
