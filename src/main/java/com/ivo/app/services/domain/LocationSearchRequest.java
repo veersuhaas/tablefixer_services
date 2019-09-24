@@ -7,7 +7,7 @@ public class LocationSearchRequest implements Serializable{
 
 	private static final long serialVersionUID = -8409039374798512885L;
 
-    private String locationNameSearchString; // Restaurant name or City name
+    private String locationNameSearchString; // Restaurant name
 
     private String cuisineType; // Cuisine type if any
 
