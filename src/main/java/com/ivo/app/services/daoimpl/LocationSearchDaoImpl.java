@@ -2,6 +2,7 @@ package com.ivo.app.services.daoimpl;
 
 import com.ivo.app.services.dao.LocationSearchDao;
 import com.ivo.app.services.domain.AddressSearchResponse;
+import com.ivo.app.services.domain.LocationDetails;
 import com.ivo.app.services.domain.LocationSearchRequest;
 import com.ivo.app.services.domain.LocationSearchResponse;
 import com.ivo.app.services.util.LocationSearchConstants;
@@ -29,8 +30,8 @@ public class LocationSearchDaoImpl implements LocationSearchDao {
 		params.put("UUID", userUUID);
         params.put("locationType", locationSearchRequest.getUserBookMarkLocationType());
 		params.put("radius", new Float(locationSearchRequest.getSearchRadiusMiles()));
-            params.put("lng", Double.parseDouble(locationSearchRequest.getLongitude()));
-            params.put("lat", Double.parseDouble(locationSearchRequest.getLatitude()));
+        params.put("lng", Double.parseDouble(locationSearchRequest.getLongitude()));
+        params.put("lat", Double.parseDouble(locationSearchRequest.getLatitude()));
         params.put("cuisineType", "%" + locationSearchRequest.getCuisineType() + "%");
         params.put("locationName", "%" + locationSearchRequest.getLocationNameSearchString() + "%");
 
@@ -75,4 +76,14 @@ public class LocationSearchDaoImpl implements LocationSearchDao {
         return namedParameterJdbcTemplate.query(LocationSearchConstants.QUERY_GENERIC_ADDRESS_SEARCH + " limit " + pageable.getPageSize() + " offset " + (pageable.getPageNumber() - 1) * pageable.getPageSize(), params, new BeanPropertyRowMapper<>(AddressSearchResponse.class));
     }
 
+    @Override
+    public LocationDetails getLocationDetailsByLocationUUID(String locationUUID) {
+        Map<String, String> params = new HashMap<>();
+        params.put("locationUUID", locationUUID);
+        return namedParameterJdbcTemplate.query(" select loc_uuid locationUUID ,loc_type_id locationTypeId,loc_name locName,email,website," +
+                " contact_num_1 contactNum1,address_ln1 addrLn1 ,address_ln2 addrLn2,city,state,zip_code zip" +
+                " country, from location_info_ref where " +
+                " loc_uuid=:locationUUID" +
+                " and is_active=true", params, new BeanPropertyRowMapper<>(LocationDetails.class)).get(0);// TODO: 2019-09-24   | list null check
+    }
 }
