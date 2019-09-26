@@ -77,12 +77,12 @@ public class LocationSearchDaoImpl implements LocationSearchDao {
     }
 
     @Override
-    public LocationDetails getLocationDetailsByLocationUUID(String locationUUID) {
+    public LocationDetails getLocationDetailsByLocationUUID(String locationUUID) throws IndexOutOfBoundsException {
         Map<String, String> params = new HashMap<>();
         params.put("locationUUID", locationUUID);
         return namedParameterJdbcTemplate.query(" select loc_uuid locationUUID ,loc_type_id locationTypeId,loc_name locName,email,website," +
-                " contact_num_1 contactNum1,address_ln1 addrLn1 ,address_ln2 addrLn2,city,state,zip_code zip" +
-                " country, from location_info_ref where " +
+                " contact_num_1 contactNum1,address_ln1 addrLn1 ,address_ln2 addrLn2,city,state,zip_code zip," +
+                " country  from location_info_ref where " +
                 " loc_uuid=:locationUUID" +
                 " and is_active=true", params, new BeanPropertyRowMapper<>(LocationDetails.class)).get(0);// TODO: 2019-09-24   | list null check
     }
