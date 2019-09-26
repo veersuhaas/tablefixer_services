@@ -1,32 +1,76 @@
 package com.ivo.app.services.domain;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import io.swagger.annotations.ApiModelProperty;
+
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
+import java.time.LocalDateTime;
+import java.util.UUID;
 
 public class EventDetailRequest implements Serializable {
 
+    @NotNull
+    @NotEmpty
+    @ApiModelProperty(required = true)
     private String longitude;
+    @NotNull
+    @NotEmpty
+    @ApiModelProperty(required = true)
     private String latitude;
-    private String eventStartTime;
-    private String eventEndTime;
-    private String locationName;
+    @NotNull
+    @ApiModelProperty(required = true, example = "2019-09-29 14:30")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm")
+    private LocalDateTime eventStartTime;
+
+    @ApiModelProperty(hidden = true)
+    private LocalDateTime eventEndTime;
+    @NotNull
+    @NotEmpty
+    @ApiModelProperty(required = true)
     private String locationUUID;
+    @NotNull
+    @Min(value = 1)
+    @Max(value = 4)
+    @ApiModelProperty(required = true)
     private Integer payPrefId;
+    @NotNull
+    @ApiModelProperty(required = true)
+    @Min(value = 1)
+    @Max(value = 10)
     private Integer eventPurposeId;
+    @NotNull
+    @ApiModelProperty(required = true)
+    @Min(value = 1)
+    @Max(value = 3)
     private Integer eventGenderPrefId;
-    private String userUUID;
+
+    @NotNull
+    @ApiModelProperty(required = true)
     private Integer maxGuestsAllowed;
+
     private String reservationUnderName;
-    private Float eventDurationHrs;
+
+    @NotNull
+    @ApiModelProperty(required = true)
+    @Min(value = 10)
+    @Max(value = 24 * 60)
+    private Integer eventDurationMinutes;
+
+    @NotNull
+    @ApiModelProperty(required = true)
     private Boolean isPrivate;
-    private String eventUUID;
 
-    public String getLocationUUID() {
-        return locationUUID;
-    }
+    //    @ApiModelProperty(hidden = true)
+    private UUID eventUUID;
 
-    public void setLocationUUID(String locationUUID) {
-        this.locationUUID = locationUUID;
-    }
+    @NotNull
+    @NotEmpty
+    @ApiModelProperty(required = true)
+    private String sourceTimeZone;
 
     public String getLongitude() {
         return longitude;
@@ -44,28 +88,28 @@ public class EventDetailRequest implements Serializable {
         this.latitude = latitude;
     }
 
-    public String getEventStartTime() {
+    public LocalDateTime getEventStartTime() {
         return eventStartTime;
     }
 
-    public void setEventStartTime(String eventStartTime) {
+    public void setEventStartTime(LocalDateTime eventStartTime) {
         this.eventStartTime = eventStartTime;
     }
 
-    public String getEventEndTime() {
+    public LocalDateTime getEventEndTime() {
         return eventEndTime;
     }
 
-    public void setEventEndTime(String eventEndTime) {
+    public void setEventEndTime(LocalDateTime eventEndTime) {
         this.eventEndTime = eventEndTime;
     }
 
-    public String getLocationName() {
-        return locationName;
+    public String getLocationUUID() {
+        return locationUUID;
     }
 
-    public void setLocationName(String locationName) {
-        this.locationName = locationName;
+    public void setLocationUUID(String locationUUID) {
+        this.locationUUID = locationUUID;
     }
 
     public Integer getPayPrefId() {
@@ -92,14 +136,6 @@ public class EventDetailRequest implements Serializable {
         this.eventGenderPrefId = eventGenderPrefId;
     }
 
-    public String getUserUUID() {
-        return userUUID;
-    }
-
-    public void setUserUUID(String userUUID) {
-        this.userUUID = userUUID;
-    }
-
     public Integer getMaxGuestsAllowed() {
         return maxGuestsAllowed;
     }
@@ -116,12 +152,12 @@ public class EventDetailRequest implements Serializable {
         this.reservationUnderName = reservationUnderName;
     }
 
-    public Float getEventDurationHrs() {
-        return eventDurationHrs;
+    public Integer getEventDurationMinutes() {
+        return eventDurationMinutes;
     }
 
-    public void setEventDurationHrs(Float eventDurationHrs) {
-        this.eventDurationHrs = eventDurationHrs;
+    public void setEventDurationMinutes(Integer eventDurationMinutes) {
+        this.eventDurationMinutes = eventDurationMinutes;
     }
 
     public Boolean getPrivate() {
@@ -132,11 +168,19 @@ public class EventDetailRequest implements Serializable {
         isPrivate = aPrivate;
     }
 
-    public String getEventUUID() {
+    public UUID getEventUUID() {
         return eventUUID;
     }
 
-    public void setEventUUID(String eventUUID) {
+    public void setEventUUID(UUID eventUUID) {
         this.eventUUID = eventUUID;
+    }
+
+    public String getSourceTimeZone() {
+        return sourceTimeZone;
+    }
+
+    public void setSourceTimeZone(String sourceTimeZone) {
+        this.sourceTimeZone = sourceTimeZone;
     }
 }
