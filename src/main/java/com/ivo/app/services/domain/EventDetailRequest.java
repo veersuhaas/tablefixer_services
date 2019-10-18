@@ -27,21 +27,26 @@ public class EventDetailRequest implements Serializable {
     private LocalDateTime eventStartTime;
 
     @ApiModelProperty(hidden = true)
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm")
     private LocalDateTime eventEndTime;
-    @NotNull
-    @NotEmpty
+
+    @NotNull(message = "'locationUUID' is required")
+    @NotEmpty(message = "'locationUUID' is required")
     @ApiModelProperty(required = true)
     private String locationUUID;
+
     @NotNull
     @Min(value = 1)
-    @Max(value = 4)
+    @Max(value = 100)
     @ApiModelProperty(required = true)
     private Integer payPrefId;
+
     @NotNull
     @ApiModelProperty(required = true)
     @Min(value = 1)
-    @Max(value = 10)
+    @Max(value = 100)
     private Integer eventPurposeId;
+
     @NotNull
     @ApiModelProperty(required = true)
     @Min(value = 1)

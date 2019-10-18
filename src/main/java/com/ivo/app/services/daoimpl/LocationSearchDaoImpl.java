@@ -8,10 +8,12 @@ import com.ivo.app.services.domain.LocationSearchResponse;
 import com.ivo.app.services.util.LocationSearchConstants;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpStatus;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
 import org.springframework.util.StringUtils;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.HashMap;
 import java.util.List;
@@ -77,13 +79,18 @@ public class LocationSearchDaoImpl implements LocationSearchDao {
     }
 
     @Override
-    public LocationDetails getLocationDetailsByLocationUUID(String locationUUID) throws IndexOutOfBoundsException {
+    public LocationDetails getLocationDetailsByLocationUUID(String locationUUID) {
         Map<String, String> params = new HashMap<>();
         params.put("locationUUID", locationUUID);
-        return namedParameterJdbcTemplate.query(" select loc_uuid locationUUID ,loc_type_id locationTypeId,loc_name locName,email,website," +
+        List<LocationDetails> locationDetails = namedParameterJdbcTemplate.query(" select loc_uuid locationUUID ,loc_type_id locationTypeId,loc_name locName,email,website," +
                 " contact_num_1 contactNum1,address_ln1 addrLn1 ,address_ln2 addrLn2,city,state,zip_code zip," +
                 " country  from location_info_ref where " +
                 " loc_uuid=:locationUUID" +
-                " and is_active=true", params, new BeanPropertyRowMapper<>(LocationDetails.class)).get(0);// TODO: 2019-09-24   | list null check
+                " and is_active=true", params, new BeanPropertyRowMapper<>(LocationDetails.class));
+        if (locationDetails.size() > 0) {
+            return locationDetails.get(0);
+        } else {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Invalid 'locationUUID'");
+        }
     }
 }

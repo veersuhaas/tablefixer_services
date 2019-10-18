@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping(value = "/user/myplaces")
+@RequestMapping(value = "/user/places")
 public class UserLocationsController {
 
     @Autowired
@@ -30,7 +30,8 @@ public class UserLocationsController {
                                                                       @PathVariable(value = "userAddrId") Long userAddrId) {
         return ResponseEntity.ok().body(userPlacesService.updateableForMyPlaces(userLocation,userAddrId,userUUID));
     }
-    @DeleteMapping(value = "/update/{userUUID}/{userAddrId}")
+
+    @DeleteMapping(value = "/delete/{userUUID}/{userAddrId}")
     public ResponseEntity deleteLableForUserPlaces( @PathVariable(value = "userUUID") String userUUID,
                                                    @PathVariable(value = "userAddrId") Long userAddrId) {
         return ResponseEntity.ok().body(userPlacesService.deleteLableForMyPlaces(userUUID,userAddrId));
