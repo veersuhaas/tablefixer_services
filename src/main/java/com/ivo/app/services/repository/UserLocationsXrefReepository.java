@@ -17,6 +17,8 @@ public interface UserLocationsXrefReepository extends JpaRepository<UserLocation
     @Modifying
     @Query(value = LocationSearchConstants.USER_LOCATION_UPDATE,nativeQuery = true)
     int updateUserLocation(@Param("userAdrId") Long userAdrId, @Param("userLocationName") String userLocationName);
+
     @Transactional
     long deleteByuserUuidAndUserAddrId(String userUuid, Long userAddrId);
+
 }
