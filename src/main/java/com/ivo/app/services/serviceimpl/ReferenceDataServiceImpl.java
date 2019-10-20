@@ -6,6 +6,8 @@ import com.ivo.app.services.domain.EventGenderPref;
 import com.ivo.app.services.domain.EventPurpose;
 import com.ivo.app.services.domain.PayPrefResponse;
 import com.ivo.app.services.service.ReferenceDataService;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
@@ -14,7 +16,7 @@ import java.util.List;
 
 @Service
 public class ReferenceDataServiceImpl implements ReferenceDataService {
-	
+	private static final Logger logger = LogManager.getLogger(ReferenceDataServiceImpl.class);
 	@Autowired
 	private ReferenceDataDao referenceDataDao;
 

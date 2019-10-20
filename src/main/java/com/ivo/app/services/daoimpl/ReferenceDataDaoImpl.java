@@ -5,6 +5,8 @@ import com.ivo.app.services.domain.Cuisine;
 import com.ivo.app.services.domain.EventGenderPref;
 import com.ivo.app.services.domain.EventPurpose;
 import com.ivo.app.services.domain.PayPrefResponse;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -14,13 +16,13 @@ import java.util.List;
 
 @Repository
 public class ReferenceDataDaoImpl implements ReferenceDataDao {
-
+	private static final Logger logger = LogManager.getLogger(ReferenceDataDaoImpl.class);
 	@Autowired
 	private JdbcTemplate jdbcTemplate;
 
 	@Override
 	public List<PayPrefResponse> getAllGuestPayPreferences() {
-		System.out.println("=====DAO Call getAllGuestPayPreferences =>");
+		logger.info("=====DAO Call getAllGuestPayPreferences =>");
 		return jdbcTemplate.query(
                 " select pay_pref_id, pay_pref_name, pay_pref_display_name from event_pay_pref_ref order by order_by",
                 new BeanPropertyRowMapper<>(PayPrefResponse.class));
@@ -29,7 +31,7 @@ public class ReferenceDataDaoImpl implements ReferenceDataDao {
 
 	@Override
 	public List<EventGenderPref> getAllEventGenderPreferences() {
-		System.out.println("=====DAO Call getAllEventGenderPreferences =>");
+		logger.info("=====DAO Call getAllEventGenderPreferences =>");
 
 		return jdbcTemplate.query(
 				" select gender_id, gender_name,event_display_name  from gender_catg_ref where is_active_event_type=true",
@@ -38,7 +40,7 @@ public class ReferenceDataDaoImpl implements ReferenceDataDao {
 
 	@Override
 	public List<EventPurpose> getAllEventPurposes() {
-		System.out.println("=====DAO Call getAllEventPurposes =>");
+		logger.info("=====DAO Call getAllEventPurposes =>");
 
 		return jdbcTemplate.query(
 				" select purpose_id,purpose_name,purpose_display_nm from event_purpose_ref where is_active=true",

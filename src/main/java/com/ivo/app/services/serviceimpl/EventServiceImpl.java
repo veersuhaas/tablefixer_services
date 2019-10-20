@@ -7,6 +7,8 @@ import com.ivo.app.services.domain.LocationDetails;
 import com.ivo.app.services.entity.EventDetailsEntity;
 import com.ivo.app.services.repository.EventDetailsTransRepository;
 import com.ivo.app.services.service.EventService;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
@@ -19,7 +21,7 @@ import java.util.UUID;
 
 @Service
 public class EventServiceImpl implements EventService {
-
+    private static final Logger logger = LogManager.getLogger(EventServiceImpl.class);
     @Autowired
     private LocationSearchDao locationSearchDao;
 
@@ -66,9 +68,7 @@ public class EventServiceImpl implements EventService {
         } catch (Exception exception) {
             throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Failed to create Event");
         }
-
-
-        System.out.println("Event ID =" + savedEventDetailsEntity.getEventId());
+        logger.info("Event ID =" + savedEventDetailsEntity.getEventId());
         event.setEventUUID(UUID.fromString(savedEventDetailsEntity.getEventUUID()));
         return event;
     }
@@ -90,7 +90,7 @@ public class EventServiceImpl implements EventService {
     @Override
     public EventDetailRequest updateEvent(EventDetailRequest event, String userUUID) {
         int updateStatus = eventDao.updateEvent(event, userUUID);
-        System.out.println("updateStatus= " + updateStatus);
+        logger.info("updateStatus= " + updateStatus);
         return event;
     }
 
