@@ -7,4 +7,5 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface EventDetailsTransRepository extends CrudRepository<EventDetailsEntity, Long> {
 
+    int countByOrganizerUUID (String userUUID);
 }
