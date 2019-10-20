@@ -16,7 +16,7 @@ import java.util.Map;
 @Repository
 public class EventDaoImpl implements EventDao {
 
-    private static final Logger logger = LogManager.getLogger(EventDaoImpl.class);
+  private static final Logger logger = LogManager.getLogger(EventDaoImpl.class);
 
     @Autowired
     private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
@@ -48,6 +48,7 @@ public class EventDaoImpl implements EventDao {
         params.put("eventEndTime", eventEndTime);
 
         Integer existingEventsCount = namedParameterJdbcTemplate.queryForObject("select count(*) from event_details_trans where organizer_uuid=:userUUID and ((:eventStartTime between event_from_dttm   and event_to_dttm) or (:eventEndTime between event_from_dttm   and event_to_dttm )) and is_event_active=true ", params, Integer.class);
+
         if (existingEventsCount > 0) {
             return true;
         } else {
@@ -63,7 +64,6 @@ public class EventDaoImpl implements EventDao {
 
         return namedParameterJdbcTemplate.queryForObject("select COUNT(*) events_cnt from event_details_trans " +
                 "where organizer_uuid=:userUUID and TO_CHAR(event_from_dttm, 'YYYY-MM-DD')= TO_CHAR(:eventStartTime, 'YYYY-MM-DD') ", params, Integer.class);
-
     }
 
 }
