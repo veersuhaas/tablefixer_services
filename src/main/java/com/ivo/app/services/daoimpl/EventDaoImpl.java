@@ -69,7 +69,9 @@ public class EventDaoImpl implements EventDao {
                     "where userinfo.user_uuid=event.organizer_uuid " +
                     "and organizer_uuid=:userUUID and TO_CHAR(event_from_dttm, 'YYYY-MM-DD')= TO_CHAR(:eventStartTime, 'YYYY-MM-DD') " +
                     "group by userinfo.user_uuid,daily_events_limit) as a", params, Integer.class);
+
             logger.info("==)))))))))" + isNewEventAllowed);
+
         } catch (EmptyResultDataAccessException e) {
             return true;
         }

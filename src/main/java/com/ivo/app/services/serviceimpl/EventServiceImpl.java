@@ -68,8 +68,6 @@ public class EventServiceImpl implements EventService {
         } catch (Exception exception) {
             throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Failed to create Event");
         }
-
-
         logger.info("Event ID =" + savedEventDetailsEntity.getEventId());
         event.setEventUUID(UUID.fromString(savedEventDetailsEntity.getEventUUID()));
         return event;
