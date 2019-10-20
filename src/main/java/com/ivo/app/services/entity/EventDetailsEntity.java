@@ -37,7 +37,7 @@ public class EventDetailsEntity {
     @Column(name = "event_lang")
     private Float eventLongitude;
     @Column(name = "event_lat")
-    private Float event_latitude;
+    private Float eventLatitude;
     @Column(name = "is_private")
     private Boolean isPrivate;
     @Column(name = "max_guests_allowed")
@@ -191,11 +191,11 @@ public class EventDetailsEntity {
     }
 
     public Float getEvent_latitude() {
-        return event_latitude;
+        return eventLatitude;
     }
 
-    public void setEvent_latitude(Float event_latitude) {
-        this.event_latitude = event_latitude;
+    public void setEventLatitude(Float eventLatitude) {
+        this.eventLatitude = eventLatitude;
     }
 
     public Boolean getPrivate() {

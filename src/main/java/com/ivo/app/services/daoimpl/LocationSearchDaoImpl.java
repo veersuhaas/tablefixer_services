@@ -24,9 +24,9 @@ import java.util.Map;
 @Repository
 public class LocationSearchDaoImpl implements LocationSearchDao {
     private static final Logger logger = LogManager.getLogger(LocationSearchDaoImpl.class);
-	@Autowired
-    private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 
+    @Autowired
+    private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 
 	@Override
     public List<LocationSearchResponse> searchLocations(String userUUID, LocationSearchRequest locationSearchRequest, Pageable pageable) {
@@ -39,7 +39,7 @@ public class LocationSearchDaoImpl implements LocationSearchDao {
         params.put("cuisineType", "%" + locationSearchRequest.getCuisineType() + "%");
         params.put("locationName", "%" + locationSearchRequest.getLocationNameSearchString() + "%");
 
-        String queryString = null;
+        String queryString ;
         if (!StringUtils.isEmpty(locationSearchRequest.getCuisineType()) && locationSearchRequest.getCuisineType().trim().length() > 0) {
             queryString = LocationSearchConstants.QUERY_SEARCH_BY_CUISINE_TYPES;
         } else {
