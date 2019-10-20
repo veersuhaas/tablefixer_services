@@ -6,6 +6,8 @@ import com.ivo.app.services.domain.LocationDetails;
 import com.ivo.app.services.domain.LocationSearchRequest;
 import com.ivo.app.services.domain.LocationSearchResponse;
 import com.ivo.app.services.util.LocationSearchConstants;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
@@ -21,7 +23,7 @@ import java.util.Map;
 
 @Repository
 public class LocationSearchDaoImpl implements LocationSearchDao {
-
+    private static final Logger logger = LogManager.getLogger(LocationSearchDaoImpl.class);
 	@Autowired
     private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 	
@@ -48,7 +50,7 @@ public class LocationSearchDaoImpl implements LocationSearchDao {
         }
         queryString += LocationSearchConstants.QUERY_ADD_ORDER_BY_DISTANCE_LOCATION_TABLE_REFERENCE;
 
-        System.out.println(queryString);
+        logger.info(queryString);
         return namedParameterJdbcTemplate.query(queryString +
                     " limit " + pageable.getPageSize() + " offset " + (pageable.getPageNumber() - 1) * pageable.getPageSize(), params, new BeanPropertyRowMapper<>(LocationSearchResponse.class));
 
@@ -57,12 +59,12 @@ public class LocationSearchDaoImpl implements LocationSearchDao {
 	@Override
     public List<LocationSearchResponse> getUserFavoriteLocation(String userUUID, LocationSearchRequest locationSearchRequest, Pageable pageable) {
         Map<String, Object> params = new HashMap<>();
-		
-		System.out.println(locationSearchRequest.getLongitude());
-		System.out.println(userUUID);
-		System.out.println(locationSearchRequest.getLatitude());
-		System.out.println(pageable.getPageSize());
-		System.out.println((pageable.getPageNumber()-1)*pageable.getPageSize());
+
+        logger.info(locationSearchRequest.getLongitude());
+        logger.info(userUUID);
+        logger.info(locationSearchRequest.getLatitude());
+        logger.info(pageable.getPageSize());
+        logger.info((pageable.getPageNumber()-1)*pageable.getPageSize());
         params.put("userUuid", userUUID);
 		params.put("radius", new Float(locationSearchRequest.getSearchRadiusMiles()));
         params.put("lng", Double.parseDouble(locationSearchRequest.getLongitude()));
