@@ -24,12 +24,6 @@ public class LocationSearchServiceImpl implements LocationSearchService {
 			Pageable pageable) {
 		return locationSearchDao.searchLocations(userUUID, locationSearchRequest, pageable);
 	}
-
-	@Override
-	public List<LocationSearchResponse> getUserFavoriteLocation(String userUUID, LocationSearchRequest locationSearchRequest,Pageable pageable) {
-		return locationSearchDao.getUserFavoriteLocation(userUUID, locationSearchRequest, pageable);
-	}
-
 	@Override
 	public List<AddressSearchResponse> searchAddress(String searchKey, String userUUID, Pageable pageable) {
 		return locationSearchDao.searchAddress(searchKey, userUUID, pageable);

@@ -15,10 +15,6 @@ public class FavoriteLocationRequest implements Serializable{
     @Digits(message = "'latitude' should be a decimal value", fraction = 10, integer = 10)
     private String latitude;
 
-    private String gpsCoordinateReference; //CURRENT_GPS_LOCATION or MY_PLACES or CUSTOM_GPS_LOCATION // To do write a custom validator to validate these 3 possibilities and the associated fields based on the value
-
-    private String fromReferenceType; //CURRENT_GPS_LOCATION or MY_PLACES or CUSTOM_GPS_LOCATION // To do write a custom validator to validate these 3 possibilities and the associated fields based on the value
-
     private String userBookMarkLocationType; //Home, Office .. etc
 
     @NotNull
@@ -42,22 +38,6 @@ public class FavoriteLocationRequest implements Serializable{
 
     public void setLatitude(String latitude) {
         this.latitude = latitude;
-    }
-
-    public String getGpsCoordinateReference() {
-        return gpsCoordinateReference;
-    }
-
-    public void setGpsCoordinateReference(String gpsCoordinateReference) {
-        this.gpsCoordinateReference = gpsCoordinateReference;
-    }
-
-    public String getFromReferenceType() {
-        return fromReferenceType;
-    }
-
-    public void setFromReferenceType(String fromReferenceType) {
-        this.fromReferenceType = fromReferenceType;
     }
 
     public String getSearchRadiusMiles() {

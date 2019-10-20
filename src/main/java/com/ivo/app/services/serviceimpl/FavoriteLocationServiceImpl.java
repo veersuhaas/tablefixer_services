@@ -50,7 +50,7 @@ public class FavoriteLocationServiceImpl implements FavoriteLocationService {
 		}else if (!StringUtils.isEmpty(favoriteLocationRequest.getUserBookMarkLocationType())) {
 			return favoriteLocationDao.getUserFavoriteLocation(userUUID,  favoriteLocationRequest, LocationSearchConstants.USER_LOCATIONS,pageable);
 		}else {
-			return null; // To Do . throw an exception to notify invalid request
+            return favoriteLocationDao.getUserFavoriteLocation(userUUID,  favoriteLocationRequest, null,pageable);
 		}
 	}
 
