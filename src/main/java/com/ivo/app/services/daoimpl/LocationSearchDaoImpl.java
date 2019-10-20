@@ -16,7 +16,6 @@ import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
 import org.springframework.util.StringUtils;
 import org.springframework.web.server.ResponseStatusException;
-
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -26,14 +25,14 @@ public class LocationSearchDaoImpl implements LocationSearchDao {
     private static final Logger logger = LogManager.getLogger(LocationSearchDaoImpl.class);
 	@Autowired
     private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
-	
-	
+
+
 	@Override
     public List<LocationSearchResponse> searchLocations(String userUUID, LocationSearchRequest locationSearchRequest, Pageable pageable) {
         Map<String, Object> params = new HashMap<>();
-		params.put("UUID", userUUID);
+        params.put("UUID", userUUID);
         params.put("locationType", locationSearchRequest.getUserBookMarkLocationType());
-		params.put("radius", new Float(locationSearchRequest.getSearchRadiusMiles()));
+        params.put("radius", new Float(locationSearchRequest.getSearchRadiusMiles()));
         params.put("lng", Double.parseDouble(locationSearchRequest.getLongitude()));
         params.put("lat", Double.parseDouble(locationSearchRequest.getLatitude()));
         params.put("cuisineType", "%" + locationSearchRequest.getCuisineType() + "%");
@@ -50,28 +49,11 @@ public class LocationSearchDaoImpl implements LocationSearchDao {
         }
         queryString += LocationSearchConstants.QUERY_ADD_ORDER_BY_DISTANCE_LOCATION_TABLE_REFERENCE;
 
-        logger.info(queryString);
+        System.out.println(queryString);
         return namedParameterJdbcTemplate.query(queryString +
-                    " limit " + pageable.getPageSize() + " offset " + (pageable.getPageNumber() - 1) * pageable.getPageSize(), params, new BeanPropertyRowMapper<>(LocationSearchResponse.class));
+                " limit " + pageable.getPageSize() + " offset " + (pageable.getPageNumber() - 1) * pageable.getPageSize(), params, new BeanPropertyRowMapper<>(LocationSearchResponse.class));
 
-	}
-	
-	@Override
-    public List<LocationSearchResponse> getUserFavoriteLocation(String userUUID, LocationSearchRequest locationSearchRequest, Pageable pageable) {
-        Map<String, Object> params = new HashMap<>();
-
-        logger.info(locationSearchRequest.getLongitude());
-        logger.info(userUUID);
-        logger.info(locationSearchRequest.getLatitude());
-        logger.info(pageable.getPageSize());
-        logger.info((pageable.getPageNumber()-1)*pageable.getPageSize());
-        params.put("userUuid", userUUID);
-		params.put("radius", new Float(locationSearchRequest.getSearchRadiusMiles()));
-        params.put("lng", Double.parseDouble(locationSearchRequest.getLongitude()));
-        params.put("lat", Double.parseDouble(locationSearchRequest.getLatitude()));
-        return namedParameterJdbcTemplate.query(LocationSearchConstants.QUERY_USER_FAVORITE_LOCATIONS_BY_GPS_COORDINATES + " limit " + pageable.getPageSize() + " offset " + (pageable.getPageNumber() - 1) * pageable.getPageSize(), params, new BeanPropertyRowMapper<>(LocationSearchResponse.class));
-
-	}
+    }
 
     @Override
     public List<AddressSearchResponse> searchAddress(String searchKey, String userUUID, Pageable pageable) {
@@ -95,4 +77,5 @@ public class LocationSearchDaoImpl implements LocationSearchDao {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Invalid 'locationUUID'");
         }
     }
+
 }
