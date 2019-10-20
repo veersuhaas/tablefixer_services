@@ -2,6 +2,8 @@ package com.ivo.app.services.daoimpl;
 
 import com.ivo.app.services.dao.EventDao;
 import com.ivo.app.services.domain.EventDetailRequest;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
@@ -14,7 +16,7 @@ import java.util.Map;
 
 @Repository
 public class EventDaoImpl implements EventDao {
-
+    private static final Logger logger = LogManager.getLogger(EventDaoImpl.class);
     @Autowired
     private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 
@@ -46,10 +48,10 @@ public class EventDaoImpl implements EventDao {
 
         Integer existingEventsCount = namedParameterJdbcTemplate.queryForObject("select count(*) from event_details_trans where organizer_uuid=:userUUID and ((:eventStartTime between event_from_dttm   and event_to_dttm) or (:eventEndTime between event_from_dttm   and event_to_dttm )) and is_event_active=true ", params, Integer.class);
         if (existingEventsCount != null && existingEventsCount > 0) {
-            System.out.println("isEventConflictingAnyOtherExistingEvent -->" + existingEventsCount);
+            logger.info("isEventConflictingAnyOtherExistingEvent -->" + existingEventsCount);
             return true;
         } else {
-            System.out.println("isEventConflictingAnyOtherExistingEvent -->" + existingEventsCount);
+            logger.info("isEventConflictingAnyOtherExistingEvent -->" + existingEventsCount);
             return false;
         }
     }
@@ -67,7 +69,7 @@ public class EventDaoImpl implements EventDao {
                     "where userinfo.user_uuid=event.organizer_uuid " +
                     "and organizer_uuid=:userUUID and TO_CHAR(event_from_dttm, 'YYYY-MM-DD')= TO_CHAR(:eventStartTime, 'YYYY-MM-DD') " +
                     "group by userinfo.user_uuid,daily_events_limit) as a", params, Integer.class);
-            System.out.println("==)))))))))" + isNewEventAllowed);
+            logger.info("==)))))))))" + isNewEventAllowed);
         } catch (EmptyResultDataAccessException e) {
             return true;
         }

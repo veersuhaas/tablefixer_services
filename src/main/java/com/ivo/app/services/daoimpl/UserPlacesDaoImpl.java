@@ -5,6 +5,8 @@ import com.ivo.app.services.domain.UserLocation;
 import com.ivo.app.services.entity.UserLocationsXref;
 import com.ivo.app.services.repository.UserLocationsXrefReepository;
 import com.ivo.app.services.request.UserLocationRequest;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -15,7 +17,7 @@ import java.util.List;
 
 @Repository
 public class UserPlacesDaoImpl implements UserPlacesDao {
-
+    private static final Logger logger = LogManager.getLogger(UserPlacesDaoImpl.class);
     @Autowired
     private JdbcTemplate jdbcTemplate;
 

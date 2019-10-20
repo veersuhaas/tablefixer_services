@@ -6,6 +6,8 @@ import com.ivo.app.services.domain.LocationDetails;
 import com.ivo.app.services.domain.LocationSearchRequest;
 import com.ivo.app.services.domain.LocationSearchResponse;
 import com.ivo.app.services.util.LocationSearchConstants;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
@@ -14,24 +16,23 @@ import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
 import org.springframework.util.StringUtils;
 import org.springframework.web.server.ResponseStatusException;
-
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 @Repository
 public class LocationSearchDaoImpl implements LocationSearchDao {
-
+    private static final Logger logger = LogManager.getLogger(LocationSearchDaoImpl.class);
 	@Autowired
     private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
-	
-	
+
+
 	@Override
     public List<LocationSearchResponse> searchLocations(String userUUID, LocationSearchRequest locationSearchRequest, Pageable pageable) {
         Map<String, Object> params = new HashMap<>();
-		params.put("UUID", userUUID);
+        params.put("UUID", userUUID);
         params.put("locationType", locationSearchRequest.getUserBookMarkLocationType());
-		params.put("radius", new Float(locationSearchRequest.getSearchRadiusMiles()));
+        params.put("radius", new Float(locationSearchRequest.getSearchRadiusMiles()));
         params.put("lng", Double.parseDouble(locationSearchRequest.getLongitude()));
         params.put("lat", Double.parseDouble(locationSearchRequest.getLatitude()));
         params.put("cuisineType", "%" + locationSearchRequest.getCuisineType() + "%");
@@ -50,26 +51,9 @@ public class LocationSearchDaoImpl implements LocationSearchDao {
 
         System.out.println(queryString);
         return namedParameterJdbcTemplate.query(queryString +
-                    " limit " + pageable.getPageSize() + " offset " + (pageable.getPageNumber() - 1) * pageable.getPageSize(), params, new BeanPropertyRowMapper<>(LocationSearchResponse.class));
+                " limit " + pageable.getPageSize() + " offset " + (pageable.getPageNumber() - 1) * pageable.getPageSize(), params, new BeanPropertyRowMapper<>(LocationSearchResponse.class));
 
-	}
-	
-	@Override
-    public List<LocationSearchResponse> getUserFavoriteLocation(String userUUID, LocationSearchRequest locationSearchRequest, Pageable pageable) {
-        Map<String, Object> params = new HashMap<>();
-		
-		System.out.println(locationSearchRequest.getLongitude());
-		System.out.println(userUUID);
-		System.out.println(locationSearchRequest.getLatitude());
-		System.out.println(pageable.getPageSize());
-		System.out.println((pageable.getPageNumber()-1)*pageable.getPageSize());
-        params.put("userUuid", userUUID);
-		params.put("radius", new Float(locationSearchRequest.getSearchRadiusMiles()));
-        params.put("lng", Double.parseDouble(locationSearchRequest.getLongitude()));
-        params.put("lat", Double.parseDouble(locationSearchRequest.getLatitude()));
-        return namedParameterJdbcTemplate.query(LocationSearchConstants.QUERY_USER_FAVORITE_LOCATIONS_BY_GPS_COORDINATES + " limit " + pageable.getPageSize() + " offset " + (pageable.getPageNumber() - 1) * pageable.getPageSize(), params, new BeanPropertyRowMapper<>(LocationSearchResponse.class));
-
-	}
+    }
 
     @Override
     public List<AddressSearchResponse> searchAddress(String searchKey, String userUUID, Pageable pageable) {
@@ -93,4 +77,5 @@ public class LocationSearchDaoImpl implements LocationSearchDao {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Invalid 'locationUUID'");
         }
     }
+
 }
