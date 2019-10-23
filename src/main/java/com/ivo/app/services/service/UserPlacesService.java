@@ -13,4 +13,5 @@ public interface UserPlacesService {
     int updateableForMyPlaces(UserLocationRequest userLocation,Long userAddrId,String userUUID);
     long deleteLableForMyPlaces(String userUUID, Long useerAdrId);
 
+    Boolean checkLocationNameUniquenessByUser(String userUUID, String userLocationName);
 }

@@ -9,18 +9,9 @@ import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.time.LocalDateTime;
-import java.util.UUID;
 
 public class EventDetailRequest implements Serializable {
 
-    //    @NotNull
-//    @NotEmpty
-//    @ApiModelProperty(required = true)
-//    private String longitude;
-//    @NotNull
-//    @NotEmpty
-//    @ApiModelProperty(required = true)
-//    private String latitude;
     @NotNull
     @ApiModelProperty(required = true, example = "2019-09-29 14:30")
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm")
@@ -83,29 +74,10 @@ public class EventDetailRequest implements Serializable {
     @ApiModelProperty(required = true)
     private Boolean isPrivate;
 
-    @ApiModelProperty(hidden = true)
-    private UUID eventUUID;
-
     @NotNull
     @NotEmpty
     @ApiModelProperty(required = true)
     private String userCurrentTimeZone;
-
-//    public String getLongitude() {
-//        return longitude;
-//    }
-//
-//    public void setLongitude(String longitude) {
-//        this.longitude = longitude;
-//    }
-//
-//    public String getLatitude() {
-//        return latitude;
-//    }
-//
-//    public void setLatitude(String latitude) {
-//        this.latitude = latitude;
-//    }
 
     public LocalDateTime getEventStartTime() {
         return eventStartTime;
@@ -185,14 +157,6 @@ public class EventDetailRequest implements Serializable {
 
     public void setPrivate(Boolean aPrivate) {
         isPrivate = aPrivate;
-    }
-
-    public UUID getEventUUID() {
-        return eventUUID;
-    }
-
-    public void setEventUUID(UUID eventUUID) {
-        this.eventUUID = eventUUID;
     }
 
     public String getUserCurrentTimeZone() {

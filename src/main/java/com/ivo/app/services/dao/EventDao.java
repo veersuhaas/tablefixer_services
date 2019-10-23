@@ -8,8 +8,8 @@ public interface EventDao {
 
     int updateEvent(UpdateEventRequest event, String userUUID);
 
-    boolean isEventConflictingAnyOtherExistingEvent(LocalDateTime eventStartTime, LocalDateTime localDateTime, String userUUID);
+    boolean isEventConflictingAnyOtherExistingEvent(LocalDateTime eventStartTime, LocalDateTime localDateTime, String userUUID, String eventUUID);
 
-    Integer getUserEventsCountByDate(String userUUID, LocalDateTime eventStartTime);
+    Integer getUserEventsCountByDate(String userUUID, LocalDateTime eventStartTime,String eventUUID);
 
 }
