@@ -79,4 +79,27 @@ public class LocationSearchDaoImpl implements LocationSearchDao {
         }
     }
 
+
+    @Override
+    public List<AddressSearchResponse> searchAddress(String searchKey, String userUUID, Pageable pageable) {
+        Map<String, String> params = new HashMap<>();
+        params.put("searchKey", "%" + searchKey + "%");
+        return namedParameterJdbcTemplate.query(LocationSearchConstants.QUERY_GENERIC_ADDRESS_SEARCH + " limit " + pageable.getPageSize() + " offset " + (pageable.getPageNumber() - 1) * pageable.getPageSize(), params, new BeanPropertyRowMapper<>(AddressSearchResponse.class));
+    }
+
+    @Override
+    public LocationDetails getLocationDetailsByLocationUUID(String locationUUID) {
+        Map<String, String> params = new HashMap<>();
+        params.put("locationUUID", locationUUID);
+        List<LocationDetails> locationDetails = namedParameterJdbcTemplate.query(" select loc_uuid locationUUID ,loc_type_id locationTypeId,loc_name locName,email,website," +
+                " contact_num_1 contactNum1,address_ln1 addrLn1 ,address_ln2 addrLn2,city,state,zip_code zip," +
+                " country  from location_info_ref where " +
+                " loc_uuid=:locationUUID" +
+                " and is_active=true", params, new BeanPropertyRowMapper<>(LocationDetails.class));
+        if (locationDetails.size() > 0) {
+            return locationDetails.get(0);
+        } else {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Invalid 'locationUUID'");
+        }
+    }
 }

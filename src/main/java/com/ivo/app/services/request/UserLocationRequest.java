@@ -10,7 +10,6 @@ import java.io.Serializable;
 
 public class UserLocationRequest extends  Address implements Serializable  {
 
-
     @NotNull
     @NotEmpty
     private String userLocationName;

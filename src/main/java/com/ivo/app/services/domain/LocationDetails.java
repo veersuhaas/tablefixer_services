@@ -39,7 +39,7 @@ public class LocationDetails implements Serializable {
     public void setLocationTypeId(Integer locationTypeId) {
         this.locationTypeId = locationTypeId;
     }
-
+  
     public Float getLongitude() {
         return longitude;
     }

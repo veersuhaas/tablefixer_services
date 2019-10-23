@@ -14,4 +14,5 @@ public interface UserPlacesService {
     long deleteLableForMyPlaces(String userUUID, Long useerAdrId);
 
     Boolean checkLocationNameUniquenessByUser(String userUUID, String userLocationName);
+
 }
