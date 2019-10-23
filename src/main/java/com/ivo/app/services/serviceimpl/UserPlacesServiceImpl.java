@@ -44,4 +44,14 @@ public class UserPlacesServiceImpl implements UserPlacesService {
     public long deleteLableForMyPlaces(String userUUID, Long useerAdrId) {
         return userLocationsXrefReepository.deleteByuserUuidAndUserAddrId(userUUID,  useerAdrId);
     }
+
+    @Override
+    public Boolean checkLocationNameUniquenessByUser(String userUUID, String userLocationName) {
+        int count =userLocationsXrefReepository.countByUserUuidAndUserLocationNameEqualsIgnoreCase(userUUID,userLocationName);
+        System.out.println("Existing user places count ="+count);
+
+        if(count==0){
+            return true;
+        }else return false;
+    }
 }

@@ -190,7 +190,7 @@ public class EventDetailsEntity {
         this.eventLongitude = eventLongitude;
     }
 
-    public Float getEvent_latitude() {
+    public Float getEventLatitude() {
         return eventLatitude;
     }
 

@@ -21,4 +21,6 @@ public interface UserLocationsXrefReepository extends JpaRepository<UserLocation
     @Transactional
     long deleteByuserUuidAndUserAddrId(String userUuid, Long userAddrId);
 
+    int countByUserUuidAndUserLocationNameEqualsIgnoreCase(String userUUID, String locationName);
+
 }

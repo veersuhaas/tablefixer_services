@@ -40,14 +40,22 @@ public class EventDaoImpl implements EventDao {
     }
 
     @Override
-    public boolean isEventConflictingAnyOtherExistingEvent(LocalDateTime eventStartTime, LocalDateTime eventEndTime, String userUUID) {
+    public boolean isEventConflictingAnyOtherExistingEvent(LocalDateTime eventStartTime, LocalDateTime eventEndTime, String userUUID, String eventUUID) {
 
         Map<String, Object> params = new HashMap<>();
         params.put("userUUID", userUUID);
         params.put("eventStartTime", eventStartTime);
         params.put("eventEndTime", eventEndTime);
 
-        Integer existingEventsCount = namedParameterJdbcTemplate.queryForObject("select count(*) from event_details_trans where organizer_uuid=:userUUID and ((:eventStartTime between event_from_dttm   and event_to_dttm) or (:eventEndTime between event_from_dttm   and event_to_dttm )) and is_event_active=true ", params, Integer.class);
+
+        StringBuilder query = new StringBuilder("select count(*) from event_details_trans where organizer_uuid=:userUUID and ((:eventStartTime between event_from_dttm   and event_to_dttm) or (:eventEndTime between event_from_dttm   and event_to_dttm )) and is_event_active=true ");
+        if(eventUUID!=null){
+            params.put("eventUUID",eventUUID);
+            query.append(" and event_uuid <> :eventUUID ");
+        }
+
+
+        Integer existingEventsCount = namedParameterJdbcTemplate.queryForObject(query.toString(), params, Integer.class);
         if (existingEventsCount > 0) {
             return true;
         } else {
@@ -56,13 +64,19 @@ public class EventDaoImpl implements EventDao {
     }
 
     @Override
-    public Integer getUserEventsCountByDate(String userUUID, LocalDateTime eventStartTime) {
+    public Integer getUserEventsCountByDate(String userUUID, LocalDateTime eventStartTime, String eventUUID) {
         Map<String, Object> params = new HashMap<>();
         params.put("userUUID", userUUID);
         params.put("eventStartTime", eventStartTime);
 
-        return namedParameterJdbcTemplate.queryForObject("select COUNT(*) events_cnt from event_details_trans " +
-                "where organizer_uuid=:userUUID and TO_CHAR(event_from_dttm, 'YYYY-MM-DD')= TO_CHAR(:eventStartTime, 'YYYY-MM-DD') ", params, Integer.class);
+        StringBuilder query = new StringBuilder("select COUNT(*) events_cnt from event_details_trans  where organizer_uuid=:userUUID and TO_CHAR(event_from_dttm, 'YYYY-MM-DD')= TO_CHAR(:eventStartTime, 'YYYY-MM-DD') ");
+
+        if(eventUUID!=null){
+            params.put("eventUUID",eventUUID);
+            query.append(" and event_uuid <> :eventUUID ");
+        }
+
+        return namedParameterJdbcTemplate.queryForObject(query.toString(), params, Integer.class);
 
     }
 

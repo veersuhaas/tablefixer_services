@@ -32,7 +32,7 @@ public class LocationSearchDaoImpl implements LocationSearchDao {
     public List<LocationSearchResponse> searchLocations(String userUUID, LocationSearchRequest locationSearchRequest, Pageable pageable) {
         Map<String, Object> params = new HashMap<>();
         params.put("UUID", userUUID);
-        params.put("locationType", locationSearchRequest.getUserBookMarkLocationType());
+//        params.put("locationType", locationSearchRequest.getUserBookMarkLocationType());
         params.put("radius", new Float(locationSearchRequest.getSearchRadiusMiles()));
         params.put("lng", Double.parseDouble(locationSearchRequest.getLongitude()));
         params.put("lat", Double.parseDouble(locationSearchRequest.getLatitude()));
@@ -68,7 +68,7 @@ public class LocationSearchDaoImpl implements LocationSearchDao {
         Map<String, String> params = new HashMap<>();
         params.put("locationUUID", locationUUID);
         List<LocationDetails> locationDetails = namedParameterJdbcTemplate.query(" select loc_uuid locationUUID ,loc_type_id locationTypeId,loc_name locName,email,website," +
-                " contact_num_1 contactNum1,address_ln1 addrLn1 ,address_ln2 addrLn2,city,state,zip_code zip," +
+                " contact_num_1 contactNum1,address_ln1 addrLn1 ,address_ln2 addrLn2,city,state,zip_code zip,lang longitude, lat latitude," +
                 " country  from location_info_ref where " +
                 " loc_uuid=:locationUUID" +
                 " and is_active=true", params, new BeanPropertyRowMapper<>(LocationDetails.class));

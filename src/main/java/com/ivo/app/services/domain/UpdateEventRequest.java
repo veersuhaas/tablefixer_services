@@ -12,14 +12,24 @@ public class UpdateEventRequest extends EventDetailRequest implements Serializab
     @NotNull
     @NotEmpty
     @ApiModelProperty(required = true)
-    private UUID eventUUID;
+    private String eventUUID;
 
+    @ApiModelProperty(required = true, example = "false")
+    private boolean isEventCancel;
 
-    public UUID getEventUUID() {
+    public String  getEventUUID() {
         return eventUUID;
     }
 
-    public void setEventUUID(UUID eventUUID) {
+    public void setEventUUID(String eventUUID) {
         this.eventUUID = eventUUID;
+    }
+
+    public boolean isEventCancel() {
+        return isEventCancel;
+    }
+
+    public void setEventCancel(boolean eventCancel) {
+        isEventCancel = eventCancel;
     }
 }
