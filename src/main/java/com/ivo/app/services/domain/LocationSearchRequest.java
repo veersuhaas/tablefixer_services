@@ -17,7 +17,7 @@ public class LocationSearchRequest implements Serializable{
     @Digits(message = "'latitude' should be a decimal value", fraction = 10, integer = 10)
     private String latitude;
 
-	private String userBookMarkLocationType; //Home, Office .. etc
+//	private String userBookMarkLocationType; //Home, Office .. etc
 
     private boolean gpsLocationEnabled;
 
@@ -55,9 +55,9 @@ public class LocationSearchRequest implements Serializable{
         this.gpsLocationEnabled = gpsLocationEnabled;
     }
 
-	public String getLongitude() {
-		return longitude;
-	}
+	  public String getLongitude() {
+		    return longitude;
+	   }
 
     public String getGpsCoordinateReference() {
         return gpsCoordinateReference;
@@ -68,30 +68,30 @@ public class LocationSearchRequest implements Serializable{
     }
 
     public String getSearchRadiusMiles() {
-		return searchRadiusMiles;
-	}
+		    return searchRadiusMiles;
+	  }
 
-	public void setSearchRadiusMiles(String searchRadiusMiles) {
-		this.searchRadiusMiles = searchRadiusMiles;
-	}
+    public void setSearchRadiusMiles(String searchRadiusMiles) {
+      this.searchRadiusMiles = searchRadiusMiles;
+    }
 
-	public void setLongitude(String longitude) {
-		this.longitude = longitude;
-	}
+    public void setLongitude(String longitude) {
+      this.longitude = longitude;
+    }
 
-	public String getLatitude() {
-		return latitude;
-	}
+    public String getLatitude() {
+      return latitude;
+    }
 
-	public void setLatitude(String latitude) {
-		this.latitude = latitude;
-	}
+    public void setLatitude(String latitude) {
+      this.latitude = latitude;
+    }
 
-	public String getUserBookMarkLocationType() {
-		return userBookMarkLocationType;
-	}
-
-	public void setUserBookMarkLocationType(String userBookMarkLocationType) {
-		this.userBookMarkLocationType = userBookMarkLocationType;
-	}
+//	public String getUserBookMarkLocationType() {
+//		return userBookMarkLocationType;
+//	}
+//
+//	public void setUserBookMarkLocationType(String userBookMarkLocationType) {
+//		this.userBookMarkLocationType = userBookMarkLocationType;
+//	}
 }
