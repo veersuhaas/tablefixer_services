@@ -20,10 +20,10 @@ public class LocationSearchController {
     @Autowired
     private LocationSearchService locationSearchService;
 
-
     @PostMapping(value = "/search/{userUUID}")
     public ResponseEntity<List<LocationSearchResponse>> searchLocations(@RequestBody @Valid LocationSearchRequest locationSearchRequest, @PathVariable(value = "userUUID") String userUUID, @RequestParam Integer pageNumber, @RequestParam Integer pageSize) {
         Pageable pageable = PageRequest.of(pageNumber, pageSize);
+
         List<LocationSearchResponse> listLocations = locationSearchService.searchLocations(userUUID, locationSearchRequest, pageable);
         return ResponseEntity.ok().body(listLocations);
     }

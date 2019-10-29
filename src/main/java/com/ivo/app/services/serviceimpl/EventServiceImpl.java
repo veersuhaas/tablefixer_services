@@ -208,7 +208,6 @@ public class EventServiceImpl implements EventService {
         if (event.getEventStartTime().isAfter(LocalDateTime.now().plusDays(90))) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "'eventStartTime' can't be more than 90 days from now");
         }
-
     }
 
     private void performStaticValidationOnExistingEvent(UpdateEventRequest event, String userUUID) {
@@ -276,8 +275,6 @@ public class EventServiceImpl implements EventService {
         event.setEventEndTime(event.getEventStartTime().plusMinutes(event.getEventDurationMinutes()));
         return event;
     }
-
-
 
     private EventDetailsEntity setEventDetails(EventDetailRequest event, String userUUID, LocationDetails locationDetails) {
         EventDetailsEntity eventDetailsEntity = new EventDetailsEntity();

@@ -2,7 +2,6 @@ package com.ivo.app.services.util;
 
 public interface LocationSearchConstants {
 
-
     String GEO_COORDINATES = "GEO_COORDINATES";
 
     String USER_LOCATIONS = "USER_LOCATIONS";
@@ -81,7 +80,9 @@ String QUERY_USER_FAVORITE_LOCATIONS_BY_BOOK_MARKED_COORDINATES = "select loc.lo
 
 
 String QUERY_GENERIC_ADDRESS_SEARCH = "select  name,county,state,zip_codes,longitude,latitude " +
+
 			" from us_cities " +
 			" where upper(name) like upper(:searchKey)  or upper(county) like upper(:searchKey) or zip_codes like :searchKey";
 
+String USER_LOCATION_UPDATE="UPDATE user_locations_xref  SET user_location_name = :userLocationName WHERE user_addr_id = :userAdrId";
 }

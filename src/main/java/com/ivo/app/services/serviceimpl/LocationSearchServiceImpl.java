@@ -36,6 +36,7 @@ public class LocationSearchServiceImpl implements LocationSearchService {
 		}
 		return locationSearchDao.searchLocations(userUUID, locationSearchRequest, pageable);
 	}
+  
 	@Override
 	public List<AddressSearchResponse> searchAddress(String searchKey, String userUUID, Pageable pageable) {
 		UserInfoRef userInfoRef =userInfoRefRepository.findByuserUUID(userUUID);

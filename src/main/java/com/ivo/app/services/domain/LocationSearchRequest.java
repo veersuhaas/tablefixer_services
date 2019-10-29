@@ -62,12 +62,12 @@ public class LocationSearchRequest implements Serializable{
     }*/
 
     public String getSearchRadiusMiles() {
-		return searchRadiusMiles;
-	}
+		    return searchRadiusMiles;
+	  }
 
-	public void setSearchRadiusMiles(String searchRadiusMiles) {
-		this.searchRadiusMiles = searchRadiusMiles;
-	}
+    public void setSearchRadiusMiles(String searchRadiusMiles) {
+      this.searchRadiusMiles = searchRadiusMiles;
+    }
 
     public String getFromLongitude() {
         return fromLongitude;
