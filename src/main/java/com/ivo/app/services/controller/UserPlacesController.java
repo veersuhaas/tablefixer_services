@@ -1,6 +1,6 @@
 package com.ivo.app.services.controller;
 
-import com.ivo.app.services.domain.UserLocation;
+import com.ivo.app.services.domain.UserPlacesResponse;
 import com.ivo.app.services.entity.UserLocationsXref;
 import com.ivo.app.services.request.UserLocationRequest;
 import com.ivo.app.services.service.UserPlacesService;
@@ -21,28 +21,24 @@ public class UserPlacesController {
     private UserPlacesService userPlacesService;
 
     @GetMapping(value = "/list/{userUUID}")
-    public ResponseEntity<List<UserLocation>> getUserPlaces(@PathVariable(value = "userUUID") String userUUID) {
+    public ResponseEntity<List<UserPlacesResponse>> getUserPlaces(@PathVariable(value = "userUUID") String userUUID) {
         return ResponseEntity.ok().body(userPlacesService.getUserPlaces(userUUID));
     }
     @PostMapping(value = "/create/{userUUID}")
-    public ResponseEntity<UserLocationsXref> createLableForUserPlaces(@RequestBody @Valid UserLocationRequest userLocation , @PathVariable(value = "userUUID") String userUUID) {
-        boolean isNameUnique =userPlacesService.checkLocationNameUniquenessByUser(userUUID, userLocation.getUserLocationName());
-        if(isNameUnique==false){
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "There is already an existing location name. Please use different label name");
-        }
-        return ResponseEntity.ok().body(userPlacesService.createLableForMyPlaces(userLocation,userUUID,null));
+    public ResponseEntity<UserLocationsXref> createLabelForUserPlaces(@RequestBody @Valid UserLocationRequest userLocation, @PathVariable(value = "userUUID") String userUUID) {
+        return ResponseEntity.ok().body(userPlacesService.createLabelForMyPlaces(userLocation, userUUID, null));
     }
     @PutMapping(value = "/update/{userUUID}/{userAddrId}")
-    public ResponseEntity updateLableForUserPlaces(@RequestBody UserLocationRequest userLocation , @PathVariable(value = "userUUID") String userUUID,
-                                                                      @PathVariable(value = "userAddrId") Long userAddrId) {
-        return ResponseEntity.ok().body(userPlacesService.updateableForMyPlaces(userLocation,userAddrId,userUUID));
+    public ResponseEntity updateLabelForUserPlaces(@RequestBody UserLocationRequest userLocation, @PathVariable(value = "userUUID") String userUUID,
+                                                   @PathVariable(value = "userAddrId") Long userAddrId) {
+        return ResponseEntity.ok().body(userPlacesService.updateLabelForMyPlaces(userLocation, userAddrId, userUUID));
     }
 
     @DeleteMapping(value = "/delete/{userUUID}/{userAddrId}")
     public ResponseEntity deleteLableForUserPlaces( @PathVariable(value = "userUUID") String userUUID,
                                                    @PathVariable(value = "userAddrId") Long userAddrId) {
 
-        if(userPlacesService.deleteLableForMyPlaces(userUUID,userAddrId)>0){
+        if (userPlacesService.deleteLabelForMyPlaces(userUUID, userAddrId) > 0) {
             return new ResponseEntity<>(HttpStatus.OK);
         }else{
             throw new ResponseStatusException(HttpStatus.NO_CONTENT, "There is no content to delete");

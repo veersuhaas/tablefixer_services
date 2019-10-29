@@ -34,8 +34,8 @@ public class LocationSearchDaoImpl implements LocationSearchDao {
         params.put("UUID", userUUID);
 //        params.put("locationType", locationSearchRequest.getUserBookMarkLocationType());
         params.put("radius", new Float(locationSearchRequest.getSearchRadiusMiles()));
-        params.put("lng", Double.parseDouble(locationSearchRequest.getLongitude()));
-        params.put("lat", Double.parseDouble(locationSearchRequest.getLatitude()));
+        params.put("lng", Double.parseDouble(locationSearchRequest.getFromLongitude()));
+        params.put("lat", Double.parseDouble(locationSearchRequest.getFromLatitude()));
         params.put("cuisineType", "%" + locationSearchRequest.getCuisineType() + "%");
         params.put("locationName", "%" + locationSearchRequest.getLocationNameSearchString() + "%");
 

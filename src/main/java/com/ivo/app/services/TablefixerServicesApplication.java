@@ -21,9 +21,9 @@ public class TablefixerServicesApplication {
 		// Setting Spring Boot SetTimeZone
 		TimeZone.setDefault(TimeZone.getTimeZone("UTC"));
 		System.out.println("Date in UTC: " + new Date().toString());
-		TimeZone.setDefault(TimeZone.getTimeZone("CST"));
+//		TimeZone.setDefault(TimeZone.getTimeZone("CST"));
 
-		System.out.println("Date in CST: " + new Date().toString());
+//		System.out.println("Date in CST: " + new Date().toString());
 
 
 	}
