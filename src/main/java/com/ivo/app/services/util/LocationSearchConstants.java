@@ -70,7 +70,7 @@ String QUERY_USER_FAVORITE_LOCATIONS_BY_BOOK_MARKED_COORDINATES = "select loc.lo
         " from  location_info_ref loc, user_info_ref usr, user_locations_xref userloc , user_favorite_locations_xref favorite "+
         " where "+
         " favorite.user_uuid=usr.user_uuid "+
-        " and favorite.location_uuid=loc.loc_uuid "+
+		" and favorite.location_uuid=loc.loc_uuid  and userloc.user_uuid=favorite.user_uuid" +
         " and usr.user_uuid=:userUuid "+
         " and upper(userloc.user_location_name)=:userLocationType "+
         " and ST_DistanceSphere(ST_MakePoint(userloc.longitude,userloc.latitude), "+

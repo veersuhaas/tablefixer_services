@@ -3,16 +3,12 @@ package com.ivo.app.services.controller;
 import com.ivo.app.services.domain.AddressSearchResponse;
 import com.ivo.app.services.domain.LocationSearchRequest;
 import com.ivo.app.services.domain.LocationSearchResponse;
-import com.ivo.app.services.entity.UserInfoRef;
-import com.ivo.app.services.repository.UserInfoRefRepository;
 import com.ivo.app.services.service.LocationSearchService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.server.ResponseStatusException;
 
 import javax.validation.Valid;
 import java.util.List;
@@ -32,7 +28,7 @@ public class LocationSearchController {
         return ResponseEntity.ok().body(listLocations);
     }
 
-    @GetMapping(value = "/search/address/{userUUID}")
+    @GetMapping(value = "/search/city/{userUUID}")
     public ResponseEntity<List<AddressSearchResponse>> searchAddress(@RequestParam String searchKey, @PathVariable(value = "userUUID") String userUUID, @RequestParam Integer pageNumber, @RequestParam Integer pageSize) {
         Pageable pageable = PageRequest.of(pageNumber, pageSize);
 
