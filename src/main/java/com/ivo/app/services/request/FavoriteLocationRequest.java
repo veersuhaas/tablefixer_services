@@ -10,12 +10,12 @@ public class FavoriteLocationRequest implements Serializable{
 
 
     @Digits(message = "'longitude' should be a decimal value", fraction = 10, integer = 10)
-    private String longitude;
+    private String fromLongitude;
 
     @Digits(message = "'latitude' should be a decimal value", fraction = 10, integer = 10)
-    private String latitude;
+    private String fromLatitude;
 
-    private String userBookMarkLocationType; //Home, Office .. etc
+    private String fromUserBookMarkLocationType; //Home, Office .. etc
 
     @NotNull
     @NotEmpty
@@ -24,20 +24,20 @@ public class FavoriteLocationRequest implements Serializable{
     private String searchRadiusMiles;
 
 
-    public String getLongitude() {
-        return longitude;
+    public String getFromLongitude() {
+        return fromLongitude;
     }
 
-    public void setLongitude(String longitude) {
-        this.longitude = longitude;
+    public void setFromLongitude(String fromLongitude) {
+        this.fromLongitude = fromLongitude;
     }
 
-    public String getLatitude() {
-        return latitude;
+    public String getFromLatitude() {
+        return fromLatitude;
     }
 
-    public void setLatitude(String latitude) {
-        this.latitude = latitude;
+    public void setFromLatitude(String fromLatitude) {
+        this.fromLatitude = fromLatitude;
     }
 
     public String getSearchRadiusMiles() {
@@ -48,11 +48,11 @@ public class FavoriteLocationRequest implements Serializable{
         this.searchRadiusMiles = searchRadiusMiles;
     }
 
-    public String getUserBookMarkLocationType() {
-        return userBookMarkLocationType;
+    public String getFromUserBookMarkLocationType() {
+        return fromUserBookMarkLocationType;
     }
 
-    public void setUserBookMarkLocationType(String userBookMarkLocationType) {
-        this.userBookMarkLocationType = userBookMarkLocationType;
+    public void setFromUserBookMarkLocationType(String fromUserBookMarkLocationType) {
+        this.fromUserBookMarkLocationType = fromUserBookMarkLocationType;
     }
 }
