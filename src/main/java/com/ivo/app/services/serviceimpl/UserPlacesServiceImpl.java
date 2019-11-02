@@ -17,7 +17,9 @@ import java.util.List;
 
 @Service
 public class UserPlacesServiceImpl implements UserPlacesService {
+
     private static final Logger logger = LogManager.getLogger(UserPlacesServiceImpl.class);
+  
     @Autowired
     private UserPlacesDao userPlacesDao;
 

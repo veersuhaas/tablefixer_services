@@ -15,5 +15,4 @@ public interface UserPlacesService {
     int updateLabelForMyPlaces(UserLocationRequest userLocation, Long userAddrId, String userUUID);
 
     long deleteLabelForMyPlaces(String userUUID, Long useerAdrId);
-
 }

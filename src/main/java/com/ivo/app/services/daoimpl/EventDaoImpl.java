@@ -47,7 +47,6 @@ public class EventDaoImpl implements EventDao {
         params.put("eventStartTime", eventStartTime);
         params.put("eventEndTime", eventEndTime);
 
-
         StringBuilder query = new StringBuilder("select count(*) from event_details_trans where organizer_uuid=:userUUID and ((:eventStartTime between event_from_dttm   and event_to_dttm) or (:eventEndTime between event_from_dttm   and event_to_dttm )) and is_event_active=true ");
         if(eventUUID!=null){
             params.put("eventUUID",eventUUID);
@@ -65,6 +64,7 @@ public class EventDaoImpl implements EventDao {
 
     @Override
     public Integer getUserEventsCountByDate(String userUUID, LocalDateTime eventStartTime, String eventUUID) {
+
         Map<String, Object> params = new HashMap<>();
         params.put("userUUID", userUUID);
         params.put("eventStartTime", eventStartTime);
