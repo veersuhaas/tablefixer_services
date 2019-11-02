@@ -1,7 +1,10 @@
 package com.ivo.app.services.request;
 
 
-import javax.validation.constraints.*;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 
 public class FavoriteLocationRequest implements Serializable{
@@ -9,10 +12,10 @@ public class FavoriteLocationRequest implements Serializable{
 	private static final long serialVersionUID = -8409039374798512885L;
 
 
-    @Digits(message = "'longitude' should be a decimal value", fraction = 10, integer = 10)
+    //    @Digits(message = "'longitude' should be a decimal value", fraction = 10, integer = 10)
     private String fromLongitude;
 
-    @Digits(message = "'latitude' should be a decimal value", fraction = 10, integer = 10)
+    //    @Digits(message = "'latitude' should be a decimal value", fraction = 10, integer = 10)
     private String fromLatitude;
 
     private String fromUserBookMarkLocationType; //Home, Office .. etc
