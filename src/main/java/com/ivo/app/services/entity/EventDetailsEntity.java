@@ -66,8 +66,8 @@ public class EventDetailsEntity {
     private Boolean isEventLocked;
     @Column(name = "is_event_confirmed")
     private Boolean isEventConfirmed;
-    @Column(name = "event_notes_by_organizer")
-    private String eventNotesByOrganizer;
+    @Column(name = "event_desc")
+    private String eventDesc;
     @Column(name = "event_closing_remarks")
     private String eventClosingRemarks;
     @Column(name = "event_short_desc")
@@ -310,12 +310,12 @@ public class EventDetailsEntity {
         isEventConfirmed = eventConfirmed;
     }
 
-    public String getEventNotesByOrganizer() {
-        return eventNotesByOrganizer;
+    public String getEventDesc() {
+        return eventDesc;
     }
 
-    public void setEventNotesByOrganizer(String eventNotesByOrganizer) {
-        this.eventNotesByOrganizer = eventNotesByOrganizer;
+    public void setEventDesc(String eventDesc) {
+        this.eventDesc = eventDesc;
     }
 
     public String getEventClosingRemarks() {

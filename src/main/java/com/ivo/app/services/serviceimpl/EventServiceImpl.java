@@ -52,13 +52,13 @@ public class EventServiceImpl implements EventService {
 
         performLookupValidationOnEvent(enrichedEvent, userUUID);
 
-        LocationDetails locationDetails = locationSearchDao.getLocationDetailsByLocationUUID(event.getLocationUUID().toString());
+        LocationDetails locationDetails = locationSearchDao.getLocationDetailsByLocationUUID(event.getLocationUUID());
 
         EventDetailsEntity eventDetailsEntity = setEventDetails(event, userUUID, locationDetails);
         EventDetailsEntity savedEventDetailsEntity = null;
         try {
             savedEventDetailsEntity = eventDetailsTransRepository.save(eventDetailsEntity);
-            response =setEventDetailsResponse(savedEventDetailsEntity,response);
+            response = setEventDetailsResponse(savedEventDetailsEntity, response, event);
 //            response=(EventDetailsResponse)event;
         } catch (DataIntegrityViolationException integrityException) {
             if(integrityException.getMessage()!=null) {
@@ -85,10 +85,10 @@ public class EventServiceImpl implements EventService {
         return response;
     }
 
-    private EventDetailsResponse setEventDetailsResponse(EventDetailsEntity savedEventDetailsEntity, EventDetailsResponse response) {
+    private EventDetailsResponse setEventDetailsResponse(EventDetailsEntity savedEventDetailsEntity, EventDetailsResponse response, EventDetailRequest request) {
         response.setEventUUID(savedEventDetailsEntity.getEventUUID());
         response.setEventEndTime(savedEventDetailsEntity.getEventToDttm());
-//        response.setEventDurationMinutes(savedEventDetailsEntity.);
+        response.setEventDurationMinutes(request.getEventDurationMinutes());
         response.setEventGenderPrefId(savedEventDetailsEntity.getEventGenderCatId());
         response.setEventGuestExpectedAgeEnd(savedEventDetailsEntity.getEventAgeBracketEndYrs());
         response.setEventGuestExpectedAgeStart(savedEventDetailsEntity.getEventAgeBracketStartYrs());
@@ -98,8 +98,9 @@ public class EventServiceImpl implements EventService {
         response.setMaxGuestsAllowed(savedEventDetailsEntity.getMaxGuestsAllowed());
         response.setPayPrefId(savedEventDetailsEntity.getPaySharePrefId());
         response.setPrivate(savedEventDetailsEntity.getPrivate());
-//        response.setReservationUnderName(savedEventDetailsEntity.get);
-//        response.setUserCurrentTimeZone(savedEventDetailsEntity.get);
+        response.setReservationUnderName(request.getReservationUnderName());
+        response.setUserCurrentTimeZone(request.getUserCurrentTimeZone());
+        response.setEventDesc(savedEventDetailsEntity.getEventDesc());
         return response;
     }
 
@@ -155,8 +156,8 @@ public class EventServiceImpl implements EventService {
         eventDetailsEntity.setEventId(dbEventDetailsEntity.getEventId());
         eventDetailsEntity.setEventActive(!event.isEventCancel());
         if(!dbEventDetailsEntity.getEventLocUUID().equalsIgnoreCase(event.getLocationUUID())){
-            LocationDetails locationDetails = locationSearchDao.getLocationDetailsByLocationUUID(event.getLocationUUID().toString());
-            eventDetailsEntity.setEventLocUUID(event.getLocationUUID().toString());
+            LocationDetails locationDetails = locationSearchDao.getLocationDetailsByLocationUUID(event.getLocationUUID());
+            eventDetailsEntity.setEventLocUUID(event.getLocationUUID());
             eventDetailsEntity.setEventLocationTypeID(locationDetails.getLocationTypeId());
             eventDetailsEntity.setEventAddressLn1(locationDetails.getAddrLn1());
             eventDetailsEntity.setEventAddressLn2(locationDetails.getAddrLn2());
@@ -208,6 +209,11 @@ public class EventServiceImpl implements EventService {
         if (event.getEventStartTime().isAfter(LocalDateTime.now().plusDays(90))) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "'eventStartTime' can't be more than 90 days from now");
         }
+
+        if (event.getEventGuestExpectedAgeStart() > event.getEventGuestExpectedAgeEnd()) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "'eventGuestExpectedAgeStart' can't be more than 'eventGuestExpectedAgeEnd'");
+        }
+
     }
 
     private void performStaticValidationOnExistingEvent(UpdateEventRequest event, String userUUID) {
@@ -276,6 +282,8 @@ public class EventServiceImpl implements EventService {
         return event;
     }
 
+
+
     private EventDetailsEntity setEventDetails(EventDetailRequest event, String userUUID, LocationDetails locationDetails) {
         EventDetailsEntity eventDetailsEntity = new EventDetailsEntity();
         eventDetailsEntity.setEventActive(true);
@@ -292,7 +300,7 @@ public class EventServiceImpl implements EventService {
         eventDetailsEntity.setPaySharePrefId(event.getPayPrefId());
         eventDetailsEntity.setMaxGuestsAllowed(event.getMaxGuestsAllowed());
         eventDetailsEntity.setEventUUID(UUID.randomUUID().toString());
-        eventDetailsEntity.setEventLocUUID(event.getLocationUUID().toString());
+        eventDetailsEntity.setEventLocUUID(event.getLocationUUID());
         eventDetailsEntity.setEventLocationTypeID(locationDetails.getLocationTypeId());
         eventDetailsEntity.setOrganizerUUID(userUUID);
         eventDetailsEntity.setPrivate(false);
@@ -303,6 +311,7 @@ public class EventServiceImpl implements EventService {
         eventDetailsEntity.setEventLatitude(locationDetails.getLatitude());
         eventDetailsEntity.setEventAgeBracketStartYrs(event.getEventGuestExpectedAgeStart());
         eventDetailsEntity.setEventAgeBracketEndYrs(event.getEventGuestExpectedAgeEnd());
+        eventDetailsEntity.setEventDesc(event.getEventDesc());
         return eventDetailsEntity;
     }
 }

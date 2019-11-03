@@ -3,10 +3,7 @@ package com.ivo.app.services.domain;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModelProperty;
 
-import javax.validation.constraints.Max;
-import javax.validation.constraints.Min;
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
+import javax.validation.constraints.*;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
@@ -78,6 +75,11 @@ public class EventDetailRequest implements Serializable {
     @NotEmpty
     @ApiModelProperty(required = true)
     private String userCurrentTimeZone;
+
+    @NotEmpty(message = "'eventDesc' can't be empty")
+    @ApiModelProperty(required = true)
+    @Size(min = 10, max = 500)
+    private String eventDesc;
 
     public LocalDateTime getEventStartTime() {
         return eventStartTime;
@@ -181,5 +183,13 @@ public class EventDetailRequest implements Serializable {
 
     public void setEventGuestExpectedAgeEnd(Integer eventGuestExpectedAgeEnd) {
         this.eventGuestExpectedAgeEnd = eventGuestExpectedAgeEnd;
+    }
+
+    public String getEventDesc() {
+        return eventDesc;
+    }
+
+    public void setEventDesc(String eventDesc) {
+        this.eventDesc = eventDesc;
     }
 }
