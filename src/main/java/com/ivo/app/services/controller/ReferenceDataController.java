@@ -18,8 +18,8 @@ public class ReferenceDataController {
 	
 	@Autowired
 	private ReferenceDataService referenceDataService;
-	
-	@GetMapping(value="/guests/paypref/list")
+
+	@GetMapping(value = "/event/guests/paypref/list")
     public List<EventPayPrefRef> getAllGuestPayPreferences() {
 		return referenceDataService.getAllGuestPayPreferences();
 	}
@@ -30,7 +30,7 @@ public class ReferenceDataController {
 	}
 
     @GetMapping(value = "/genders/list")
-    public List<GenderCatgRef> getAllEventGendersList() {
+	public List<GenderCatgRef> getGendersList() {
         return referenceDataService.getAllGendersList();
     }
 

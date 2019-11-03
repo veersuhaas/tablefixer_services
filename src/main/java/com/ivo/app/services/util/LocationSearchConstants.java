@@ -83,6 +83,4 @@ String QUERY_GENERIC_ADDRESS_SEARCH = "select  name,county,state,zip_codes,longi
 
 			" from us_cities " +
 			" where upper(name) like upper(:searchKey)  or upper(county) like upper(:searchKey) or zip_codes like :searchKey";
-
-String USER_LOCATION_UPDATE="UPDATE user_locations_xref  SET user_location_name = :userLocationName WHERE user_addr_id = :userAdrId";
 }
