@@ -2,10 +2,7 @@ package com.ivo.app.services.serviceimpl;
 
 import com.ivo.app.services.dao.EventDao;
 import com.ivo.app.services.dao.LocationSearchDao;
-import com.ivo.app.services.domain.EventDetailRequest;
-import com.ivo.app.services.domain.EventDetailsResponse;
-import com.ivo.app.services.domain.LocationDetails;
-import com.ivo.app.services.domain.UpdateEventRequest;
+import com.ivo.app.services.domain.*;
 import com.ivo.app.services.entity.EventDetailsEntity;
 import com.ivo.app.services.entity.UserInfoRef;
 import com.ivo.app.services.repository.EventDetailsTransRepository;
@@ -15,12 +12,14 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.UUID;
 
 @Service
@@ -130,6 +129,11 @@ public class EventServiceImpl implements EventService {
 
         EventDetailsEntity updatedEntity =eventDetailsTransRepository.saveAndFlush(updatedEventDetailsEntity);
         return setEventDetails(updatedEntity);
+    }
+
+    @Override
+    public List<PublicEventResponse> getMyEvents(UserEventsServiceRequest request, String userUUID, Pageable pageable) {
+        return eventDao.getMyEvents(request, userUUID, pageable);
     }
 
     private EventDetailsResponse setEventDetails(EventDetailsEntity updatedEntity) {

@@ -83,4 +83,46 @@ String QUERY_GENERIC_ADDRESS_SEARCH = "select  name,county,state,zip_codes,longi
 
 			" from us_cities " +
 			" where upper(name) like upper(:searchKey)  or upper(county) like upper(:searchKey) or zip_codes like :searchKey";
+
+    String QUERY_PUBLIC_OPEN_EVENTS_HEAD = " select max_guests_allowed, SUM(CASE  WHEN guest.organizer_status='Accepted' THEN 1 ELSE 0 END) AS org_accepted_cnt," +
+            " SUM(CASE WHEN guest.guest_status='Interested' THEN 1 ELSE 0 END) AS guest_interested_cnt,trans.event_uuid,trans.event_location_name,trans.event_loc_uuid, " +
+            " trans.event_addr_ln1,trans.event_addr_ln2,trans.event_city,trans.event_country," +
+            " trans.event_state,trans.event_zip,usr.user_uuid, usr.first_name || ' ' || usr.last_name as username," +
+            " usr.facebook_link, usr.twitter_link,usr.linkedin_link, usr.contact_num," +
+            " trans.event_from_dttm, trans.event_to_dttm,trans.event_desc,trans.event_short_desc,trans.organizer_uuid,trans.event_lang,trans.event_lat," +
+            " ST_DistanceSphere(ST_MakePoint(trans.event_lang,trans.event_lat),   ST_MakePoint(:fromLongitude, :fromLatitude)) distance ,trans.event_age_bracket_start_yrs ageYearsStart,trans.event_age_bracket_end_yrs ageYearsEnd" +
+            " from  event_details_trans trans " +
+            " inner join user_info_ref usr on trans.organizer_uuid = usr.user_uuid " +
+            " left join event_guest_sign_up_trans guest on trans.event_uuid= guest.event_uuid " +
+            " where  trans.event_from_dttm >now() and event_age_bracket_start_yrs < event_age_bracket_end_yrs  ";
+
+    String QUERY_USER_EVENTS_HEAD = " select CASE  WHEN trans.event_from_dttm>now() THEN true ELSE false END AS active,max_guests_allowed, SUM(CASE  WHEN guest.organizer_status='Accepted' THEN 1 ELSE 0 END) AS org_accepted_cnt," +
+            " SUM(CASE WHEN guest.guest_status='Interested' THEN 1 ELSE 0 END) AS guest_interested_cnt,trans.event_uuid,trans.event_location_name,trans.event_loc_uuid, " +
+            " trans.event_addr_ln1,trans.event_addr_ln2,trans.event_city,trans.event_country," +
+            " trans.event_state,trans.event_zip,usr.user_uuid, usr.first_name || ' ' || usr.last_name as username," +
+            " usr.facebook_link, usr.twitter_link,usr.linkedin_link, usr.contact_num," +
+            " trans.event_from_dttm, trans.event_to_dttm,trans.event_desc,trans.event_short_desc,trans.organizer_uuid,trans.event_lang,trans.event_lat," +
+            " ST_DistanceSphere(ST_MakePoint(trans.event_lang,trans.event_lat),   ST_MakePoint(:fromLongitude, :fromLatitude)) distance ,trans.event_age_bracket_start_yrs ageYearsStart,trans.event_age_bracket_end_yrs ageYearsEnd" +
+            " from  event_details_trans trans " +
+            " inner join user_info_ref usr on trans.organizer_uuid = usr.user_uuid " +
+            " left join event_guest_sign_up_trans guest on trans.event_uuid= guest.event_uuid " +
+            " where  trans.organizer_uuid=:userUUID and event_age_bracket_start_yrs < event_age_bracket_end_yrs  ";
+
+    String QUERY_USER_EVENTS_TAIL = " and ST_DistanceSphere(ST_MakePoint(trans.event_lang,trans.event_lat), ST_MakePoint(:fromLongitude, :fromLatitude))<= :radius * 1609.344 " +
+            " group by max_guests_allowed,trans.event_uuid,trans.event_location_name,trans.event_loc_uuid, " +
+            " trans.event_addr_ln1,trans.event_addr_ln2,trans.event_city,trans.event_country," +
+            " trans.event_state,trans.event_zip,usr.user_uuid, usr.first_name ,usr.last_name ," +
+            " usr.facebook_link, usr.twitter_link,usr.linkedin_link, usr.contact_num, " +
+            " trans.event_from_dttm, trans.event_to_dttm,trans.event_desc,trans.event_short_desc,trans.organizer_uuid, " +
+            " trans.event_lang,trans.event_lat,trans.event_age_bracket_start_yrs,trans.event_age_bracket_end_yrs " +
+            " order by event_from_dttm desc";
+
+    String QUERY_PUBLIC_OPEN_EVENTS_TAIL = " and ST_DistanceSphere(ST_MakePoint(trans.event_lang,trans.event_lat), ST_MakePoint(:fromLongitude, :fromLatitude))<= :radius * 1609.344 " +
+            " group by max_guests_allowed,trans.event_uuid,trans.event_location_name,trans.event_loc_uuid, " +
+            " trans.event_addr_ln1,trans.event_addr_ln2,trans.event_city,trans.event_country," +
+            " trans.event_state,trans.event_zip,usr.user_uuid, usr.first_name ,usr.last_name ," +
+            " usr.facebook_link, usr.twitter_link,usr.linkedin_link, usr.contact_num, " +
+            " trans.event_from_dttm, trans.event_to_dttm,trans.event_desc,trans.event_short_desc,trans.organizer_uuid, " +
+            " trans.event_lang,trans.event_lat,trans.event_age_bracket_start_yrs,trans.event_age_bracket_end_yrs " +
+            " order by ST_DistanceSphere(ST_MakePoint(trans.event_lang,trans.event_lat),   ST_MakePoint(:fromLongitude, :fromLatitude))";
 }
