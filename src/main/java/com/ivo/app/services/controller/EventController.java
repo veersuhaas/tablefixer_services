@@ -1,16 +1,17 @@
 package com.ivo.app.services.controller;
 
-import com.ivo.app.services.domain.EventDetailRequest;
-import com.ivo.app.services.domain.EventDetailsResponse;
-import com.ivo.app.services.domain.UpdateEventRequest;
+import com.ivo.app.services.domain.*;
 import com.ivo.app.services.service.EventService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
+import java.util.List;
 
 @RestController
 @RequestMapping(value = "/event")
@@ -31,5 +32,13 @@ public class EventController {
 
         EventDetailRequest eventDetailRequest = eventService.updateEvent(event, userUUID);
         return new ResponseEntity<>(eventDetailRequest, HttpStatus.OK);
+    }
+
+    @PostMapping(value = "/public/user/{userUUID}")
+    public ResponseEntity<List<PublicEventResponse>> getMyEvents(@Valid @RequestBody UserEventsServiceRequest request, @PathVariable("userUUID") String userUUID, @RequestParam Integer pageNumber, @RequestParam Integer pageSize) {
+        Pageable pageable = PageRequest.of(pageNumber, pageSize);
+
+        return new ResponseEntity<>(eventService.getMyEvents(request, userUUID, pageable), HttpStatus.OK);
+
     }
 }

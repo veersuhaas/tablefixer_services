@@ -1,16 +1,18 @@
 package com.ivo.app.services.domain;
 
+import io.swagger.annotations.ApiModelProperty;
+
 import javax.validation.constraints.Digits;
 
 public class PublicEventRequest {
 
+    @ApiModelProperty(required = true)
     @Digits(message = "'fromLongitude' should be a decimal value", fraction = 10, integer = 10)
     private String fromLongitude;
 
+    @ApiModelProperty(required = true)
     @Digits(message = "'fromLatitude' should be a decimal value", fraction = 10, integer = 10)
     private String fromLatitude;
-
-    private String userUUID;
 
     private Integer[] listGenderIds;
 
@@ -20,7 +22,7 @@ public class PublicEventRequest {
 
     private Integer[] payPrefIds;
 
-    private String searchRadius;
+    private Integer searchRadius;
 
     private boolean visitor;
 
@@ -38,14 +40,6 @@ public class PublicEventRequest {
 
     public void setFromLatitude(String fromLatitude) {
         this.fromLatitude = fromLatitude;
-    }
-
-    public String getUserUUID() {
-        return userUUID;
-    }
-
-    public void setUserUUID(String userUUID) {
-        this.userUUID = userUUID;
     }
 
     public Integer[] getListGenderIds() {
@@ -80,11 +74,11 @@ public class PublicEventRequest {
         this.payPrefIds = payPrefIds;
     }
 
-    public String getSearchRadius() {
+    public Integer getSearchRadius() {
         return searchRadius;
     }
 
-    public void setSearchRadius(String searchRadius) {
+    public void setSearchRadius(Integer searchRadius) {
         this.searchRadius = searchRadius;
     }
 

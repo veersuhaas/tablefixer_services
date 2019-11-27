@@ -56,6 +56,12 @@ public class PublicEventResponse {
 
     private String eventLat;
 
+    private Integer ageYearsStart;
+
+    private Integer ageYearsEnd;
+
+    private boolean active;
+
     public Integer getMaxGuestsAllowed() {
         return maxGuestsAllowed;
     }
@@ -262,5 +268,29 @@ public class PublicEventResponse {
 
     public void setEventLat(String eventLat) {
         this.eventLat = eventLat;
+    }
+
+    public Integer getAgeYearsStart() {
+        return ageYearsStart;
+    }
+
+    public void setAgeYearsStart(Integer ageYearsStart) {
+        this.ageYearsStart = ageYearsStart;
+    }
+
+    public Integer getAgeYearsEnd() {
+        return ageYearsEnd;
+    }
+
+    public void setAgeYearsEnd(Integer ageYearsEnd) {
+        this.ageYearsEnd = ageYearsEnd;
+    }
+
+    public boolean isActive() {
+        return active;
+    }
+
+    public void setActive(boolean active) {
+        this.active = active;
     }
 }
