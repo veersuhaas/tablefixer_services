@@ -48,6 +48,7 @@ public class ReferenceDataServiceImpl implements ReferenceDataService {
 	@Override
 	@Cacheable(cacheNames = "gendersList")
 	public List<GenderCatgRef> getAllGendersList() {
+		System.out.println("1111111111");
 		return eventGenderPrefRepository.findAllByActiveGenderTypeTrueOrderByOrderBy();
 	}
 
